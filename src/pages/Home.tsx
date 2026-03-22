@@ -1,0 +1,455 @@
+import React, { useState } from 'react';
+import { useRazorpay } from '../hooks/useRazorpay';
+import { useUsageStore } from '../store/usage';
+import { LoginModal } from '../components/LoginModal';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, Globe, Rocket } from 'lucide-react';
+
+export const Home: React.FC = () => {
+  const { handlePayment, isProcessing } = useRazorpay();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isPro } = useUsageStore();
+  return (
+    <div className="flex flex-col items-center w-full overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 text-center relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] -z-10 pointer-events-none" />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-purple-300 mb-8">
+            <Sparkles className="w-4 h-4" />
+            <span>Powered by Advanced AI</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 break-words w-full">
+            <span>Create viral content</span>
+            <span className="hidden md:block w-full h-0"></span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 flex items-center">
+              in seconds <Rocket className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 ml-2 sm:ml-4 text-blue-500 flex-shrink-0" style={{ fill: 'url(#rocket-gradient)' }} />
+            </span>
+          </h1>
+          
+          <h2 className="text-2xl sm:text-3xl font-semibold text-gray-300 mb-8 max-w-3xl mx-auto">
+            AI tools for creators, freelancers & business owners
+          </h2>
+          
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-sm text-orange-300 font-medium">
+              <span>🔥 Trusted by 1,000+ creators and marketers</span>
+            </div>
+          </div>
+
+          {/* SVG Gradient Definition for Rocket */}
+          <svg width="0" height="0" className="absolute">
+            <linearGradient id="rocket-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop stopColor="#c084fc" offset="0%" />
+              <stop stopColor="#3b82f6" offset="100%" />
+            </linearGradient>
+          </svg>
+
+          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            Discover powerful AI tools designed to help you grow faster. Generate content, captions, and ideas instantly using smart automation.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+            <Link 
+              to="/tools" 
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center group"
+            >
+              Try Free Tools
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <a 
+              href="#tools" 
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 text-white font-semibold hover:bg-white/10 border border-white/10 transition-colors flex items-center justify-center"
+            >
+              Generate Now
+            </a>
+          </div>
+          <p className="text-sm text-gray-500 font-medium">
+            No design skills needed • Instant results • Free to start
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Trust Section */}
+      <section className="w-full bg-white/[0.02] border-y border-white/5 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-4">
+                <Star className="w-6 h-6 text-yellow-500" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Used by creators</h3>
+              <p className="text-sm text-gray-400">Helping creators generate high-converting content</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-blue-500" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Generates content in seconds</h3>
+              <p className="text-sm text-gray-400">Instant AI-powered results for faster workflow</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center mb-4">
+                <Globe className="w-6 h-6 text-green-500" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Built in India for global creators</h3>
+              <p className="text-sm text-gray-400">Designed for creators worldwide</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You Can Create Section */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold mb-4">What You Can Create with Praxo AI Tools</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Our AI content generator helps you create high-quality content faster. Whether you need social media posts or business marketing materials, our free AI tools for content creation have you covered.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {[
+            "Instagram captions",
+            "LinkedIn posts",
+            "YouTube scripts",
+            "Ad copy",
+            "Business content",
+            "Marketing ideas"
+          ].map((item, index) => (
+            <div key={index} className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 border border-white/10">
+              <CheckCircle2 className="w-5 h-5 text-purple-400 flex-shrink-0" />
+              <span className="font-medium">{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Tools Section */}
+      <section id="tools" className="w-full bg-white/[0.02] border-y border-white/5 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Free AI Tools for Creators</h2>
+            <p className="text-gray-400">Everything you need to grow your audience.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ToolCard 
+              to="/viral-hook-generator"
+              icon={<Zap className="w-8 h-8 text-purple-400" />}
+              title="Viral Hook Generator"
+              description="Create scroll-stopping opening lines that instantly grab attention and make people want to watch, read, or click."
+              color="from-purple-500/20 to-transparent"
+            />
+            <ToolCard 
+              to="/caption-generator"
+              icon={<MessageSquare className="w-8 h-8 text-blue-400" />}
+              title="Caption Generator"
+              description="Turn your ideas into complete captions with engaging text, clear messaging, and relevant hashtags that drive likes, comments, and shares."
+              color="from-blue-500/20 to-transparent"
+            />
+            <ToolCard 
+              to="/ai-prompt-generator"
+              icon={<PenTool className="w-8 h-8 text-pink-400" />}
+              title="AI Prompt Generator"
+              description="Create clear and powerful prompts that help you get better results from any AI tool, whether you're generating content, images, or ideas."
+              color="from-pink-500/20 to-transparent"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Marketing Section */}
+      <section className="w-full bg-white/[0.02] border-y border-white/5 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">AI Tools for Marketing & Social Media</h2>
+            <p className="text-gray-400">Boost your engagement and reach with AI-driven content strategies.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            <div className="relative">
+              <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">1</div>
+              <h3 className="text-xl font-semibold mb-2">Enter your idea</h3>
+              <p className="text-gray-400">Just type in your topic or keyword. Keep it simple.</p>
+              <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-white/20 to-transparent" />
+            </div>
+            <div className="relative">
+              <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">2</div>
+              <h3 className="text-xl font-semibold mb-2">Generate content</h3>
+              <p className="text-gray-400">Our AI analyzes trends to create high-converting copy.</p>
+              <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-white/20 to-transparent" />
+            </div>
+            <div>
+              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">3</div>
+              <h3 className="text-xl font-semibold mb-2">Copy and use</h3>
+              <p className="text-gray-400">Click to copy and paste directly to your social platforms.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Section */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold mb-4">AI Tools for Business Automation</h2>
+          <p className="text-gray-400">Scale your operations and save time with intelligent automation.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
+            <div className="flex items-center space-x-2 mb-4">
+              <Zap className="w-5 h-5 text-purple-400" />
+              <h3 className="font-bold text-white">Viral Hook</h3>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+              <p className="text-gray-300 font-medium">"Stop scrolling if you want to grow your Instagram in 2026 🚀"</p>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
+            <div className="flex items-center space-x-2 mb-4">
+              <MessageSquare className="w-5 h-5 text-blue-400" />
+              <h3 className="font-bold text-white">Engaging Caption</h3>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+              <p className="text-gray-300 font-medium">"Consistency beats talent. Start posting smarter, not harder. #GrowthMindset #CreatorTips"</p>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
+            <div className="flex items-center space-x-2 mb-4">
+              <PenTool className="w-5 h-5 text-pink-400" />
+              <h3 className="font-bold text-white">AI Prompt</h3>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+              <p className="text-gray-300 font-medium">"Create a high-converting Instagram reel script for a fitness coach targeting beginners."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="w-full bg-white/[0.02] border-y border-white/5 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">What creators are saying</h2>
+            <p className="text-gray-400">Join thousands of creators growing faster with Praxo AI.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-purple-500/30 transition-colors">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
+              <div className="flex text-yellow-500 mb-4">
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+              </div>
+              <p className="text-gray-300 mb-6 flex-1 italic">"Saved me hours every day. My content engagement doubled."</p>
+              <div>
+                <p className="font-bold text-white">— Rohit</p>
+                <p className="text-sm text-gray-400">Instagram Creator</p>
+              </div>
+            </div>
+            
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-blue-500/30 transition-colors">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
+              <div className="flex text-yellow-500 mb-4">
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+              </div>
+              <p className="text-gray-300 mb-6 flex-1 italic">"The hooks are insanely good. My reels started performing better instantly."</p>
+              <div>
+                <p className="font-bold text-white">— Priya</p>
+                <p className="text-sm text-gray-400">Content Creator</p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-pink-500/30 transition-colors">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
+              <div className="flex text-yellow-500 mb-4">
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+              </div>
+              <p className="text-gray-300 mb-6 flex-1 italic">"Best tool for quick captions and ideas. Super easy to use."</p>
+              <div>
+                <p className="font-bold text-white">— Aman</p>
+                <p className="text-sm text-gray-400">Small Business Owner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold mb-4">Simple Pricing</h2>
+          <p className="text-gray-400">Start for free, upgrade when you need more.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Starter Plan */}
+          <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col">
+            <h3 className="text-2xl font-bold mb-2">Starter</h3>
+            <div className="text-4xl font-extrabold mb-6">₹0<span className="text-lg text-gray-400 font-normal">/mo</span></div>
+            <ul className="space-y-4 mb-8 flex-1">
+              <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> 3 credits per day (guest)</li>
+              <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Login required for extended usage</li>
+              <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to 3 tools</li>
+              <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Standard quality output</li>
+              <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Ads may be shown</li>
+            </ul>
+            <Link to="/tools" className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-center font-semibold transition-colors mb-3">
+              Get Started
+            </Link>
+            <div className="flex justify-center items-center text-xs text-gray-400">
+              <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> No credit card required</span>
+            </div>
+          </div>
+
+          {/* Pro Plan */}
+          <div className="p-8 rounded-3xl bg-gradient-to-b from-purple-900/40 to-blue-900/20 border-2 border-purple-500/50 flex flex-col relative overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+            <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-blue-500 text-xs font-bold px-4 py-1.5 rounded-bl-xl">🔥 Most Popular</div>
+            <h3 className="text-2xl font-bold mb-2">Pro</h3>
+            <div className="flex items-baseline gap-2 mb-2">
+              <div className="text-4xl font-extrabold">₹99<span className="text-lg text-gray-400 font-normal">/mo</span></div>
+            </div>
+            <p className="text-purple-300 text-sm font-medium mb-6">🔥 Limited launch pricing</p>
+            <ul className="space-y-4 mb-8 flex-1">
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Unlimited credits</li>
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to all tools</li>
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Generate 5 results per request</li>
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Premium quality output</li>
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Faster generation</li>
+              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> No ads</li>
+            </ul>
+            <button 
+              onClick={() => {
+                if (isPro) return;
+                handlePayment(() => setIsLoginModalOpen(true));
+              }}
+              disabled={isProcessing || isPro}
+              className="w-full py-3 rounded-xl bg-white text-black hover:bg-gray-100 text-center font-semibold transition-colors shadow-lg mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isPro ? 'Pro Active' : (isProcessing ? 'Processing...' : 'Unlock Unlimited Credits 🚀')}
+            </button>
+            <div className="flex justify-center items-center space-x-4 text-xs text-gray-400">
+              <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> Instant results</span>
+              <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> Used by creators worldwide</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who is this for? */}
+      <section id="features" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold mb-4">Who is this for?</h2>
+          <p className="text-gray-400">Built for anyone looking to scale their online presence.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <h3 className="text-xl font-bold mb-2">Content Creators</h3>
+            <p className="text-sm text-gray-400">Create scroll-stopping hooks, captions, and ideas for any type of content across all platforms.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <h3 className="text-xl font-bold mb-2">Business Owners</h3>
+            <p className="text-sm text-gray-400">Generate high-converting captions, ads, and content to promote your products or services.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <h3 className="text-xl font-bold mb-2">Marketers</h3>
+            <p className="text-sm text-gray-400">Create engaging content, ad copy, and campaigns faster without spending hours brainstorming.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <h3 className="text-xl font-bold mb-2">Freelancers</h3>
+            <p className="text-sm text-gray-400">Save time and scale your work by generating content, ideas, and client deliverables instantly.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section id="faq" className="w-full bg-white/[0.02] border-t border-white/5 py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-400">Everything you need to know about Praxo AI.</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h3 className="text-lg font-bold mb-2">Is Praxo AI free to use?</h3>
+              <p className="text-gray-400">Yes, you can use it for free with limited daily credits. Upgrade anytime for unlimited access.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h3 className="text-lg font-bold mb-2">Do I need to login?</h3>
+              <p className="text-gray-400">You can try without login, but logging in gives you more credits and better access.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h3 className="text-lg font-bold mb-2">What can I create with Praxo AI?</h3>
+              <p className="text-gray-400">You can create hooks, captions, prompts, and content ideas for any platform.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h3 className="text-lg font-bold mb-2">Does this work for all platforms?</h3>
+              <p className="text-gray-400">Yes, Praxo AI works for Instagram, YouTube, Facebook, LinkedIn, and more.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h3 className="text-lg font-bold mb-2">Why should I upgrade?</h3>
+              <p className="text-gray-400">Upgrading gives you unlimited usage, faster results, and access to all tools.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
+          <p className="text-gray-400">Have questions or need help?</p>
+        </div>
+        
+        <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center">
+          <p className="text-lg text-gray-300 mb-6">Reach out to us anytime:</p>
+          <a href="mailto:praxodigital@gmail.com" className="inline-flex items-center justify-center space-x-2 text-xl font-bold text-white hover:text-purple-400 transition-colors mb-6">
+            <span>📧</span>
+            <span>praxodigital@gmail.com</span>
+          </a>
+          <p className="text-sm text-gray-500">We usually respond within 24 hours.</p>
+        </div>
+      </section>
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+      />
+    </div>
+  );
+};
+
+export const ToolCard = ({ to, icon, title, description, color }: { to: string, icon: React.ReactNode, title: string, description: string, color: string }) => (
+  <Link to={to} className="group block">
+    <div className="h-full p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden">
+      <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-b ${color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div className="relative z-10">
+        <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold mb-3">{title}</h3>
+        <p className="text-gray-400 leading-relaxed">{description}</p>
+      </div>
+    </div>
+  </Link>
+);

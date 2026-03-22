@@ -1,0 +1,40 @@
+--- src/pages/Home.tsx
++++ src/pages/Home.tsx
+@@ -1,8 +1,10 @@
+-import React from 'react';
++import React, { useState } from 'react';
+ import { Link } from 'react-router-dom';
+ import { motion } from 'framer-motion';
+ import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, Globe, Rocket } from 'lucide-react';
++import { useRazorpay } from '../hooks/useRazorpay';
++import { LoginModal } from '../components/LoginModal';
+ 
+ export const Home: React.FC = () => {
++  const { handlePayment, isProcessing } = useRazorpay();
++  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
++
+   return (
+@@ -333,7 +335,7 @@
+             </ul>
+             <button 
+-              onClick={() => alert("Payment integration coming soon!")}
++              onClick={() => handlePayment(() => setIsLoginModalOpen(true))}
++              disabled={isProcessing}
+               className="w-full py-3 rounded-xl bg-white text-black hover:bg-gray-100 text-center font-semibold transition-colors shadow-lg mb-3"
+             >
+-              Unlock Unlimited Credits 🚀
++              {isProcessing ? 'Processing...' : 'Unlock Unlimited Credits 🚀'}
+             </button>
+             <div className="flex justify-center items-center space-x-4 text-xs text-gray-400">
+@@ -438,6 +440,11 @@
+           </div>
+         </div>
+       </section>
++
++      <LoginModal 
++        isOpen={isLoginModalOpen} 
++        onClose={() => setIsLoginModalOpen(false)} 
++      />
+     </div>
+   );
+ };
