@@ -31,14 +31,13 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
-      // 🔥 CALL SUPABASE FUNCTION
       const response = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseAnonKey}`, // ✅ FIXED (clean + reliable)
+            'Authorization': `Bearer ${supabaseAnonKey}`,
           },
           body: JSON.stringify({
             amount: 9900,
@@ -47,14 +46,23 @@ export const useRazorpay = () => {
         }
       );
 
-      const data = await response.json();
+      // 🔥 SAFE RESPONSE HANDLING
+      const responseText = await response.text();
+      let data;
+
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Invalid JSON response:', responseText);
+        throw new Error('Invalid response from server');
+      }
+
       console.log('Order response:', data);
 
       if (!response.ok || !data?.id) {
         throw new Error(data?.error || 'Order creation failed');
       }
 
-      // 🔥 RAZORPAY OPTIONS
       const options = {
         key: razorpayKeyId,
         order_id: data.id,
