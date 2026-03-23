@@ -12,89 +12,100 @@ export const useRazorpay = () => {
     }
 
     const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
-    console.log('Razorpay Key ID loaded:', razorpayKeyId ? 'Yes (hidden for security)' : 'No');
-    if (!razorpayKeyId) {
-      alert('Payment configuration missing. Please set VITE_RAZORPAY_KEY_ID.');
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+
+    console.log('Razorpay Key:', razorpayKeyId ? 'Loaded' : 'Missing');
+    console.log('Supabase URL:', supabaseUrl);
+
+    if (!razorpayKeyId || !supabaseUrl) {
+      alert('Payment configuration missing. Check environment variables.');
       return;
     }
 
     if (!window.Razorpay) {
-      alert('Razorpay SDK failed to load. Please check your connection.');
+      alert('Razorpay SDK failed to load.');
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      // 1. Create order on backend
-      const response = await fetch('https://d2754759-3cbe-4bd8-ad3b-65c5da74d9ad.youbase.app/api/public/create-razorpay-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // 🔥 CALL SUPABASE FUNCTION (THIS IS THE FIX)
+      const response = await fetch(
+        `${supabaseUrl}/functions/v1/create-razorpay-order`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            amount: 9900,
+            currency: 'INR',
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log('Order response:', data);
+
+      if (!response.ok || !data.id) {
+        throw new Error(data?.error || 'Order creation failed');
+      }
+
+      // 🔥 RAZORPAY OPTIONS
+      const options = {
+        key: razorpayKeyId,
+        order_id: data.id,
+        amount: data.amount,
+        currency: data.currency,
+        name: 'Praxo AI',
+        description: 'Upgrade to Pro',
+        image: '/logo.png',
+
+        handler: async function () {
+          try {
+            await upgradeToPro();
+            alert('Payment successful! You are now Pro 🚀');
+          } catch (error) {
+            console.error('Upgrade failed:', error);
+            alert('Payment done but upgrade failed. Contact support.');
+          } finally {
+            setIsProcessing(false);
+          }
         },
-        body: JSON.stringify({
-          amount: 9900, // 99 INR
-          currency: 'INR',
-        }),
+
+        prefill: {
+          email: userEmail,
+        },
+
+        theme: {
+          color: '#9333ea',
+        },
+
+        modal: {
+          ondismiss: function () {
+            setIsProcessing(false);
+            alert('Payment cancelled.');
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+
+      rzp.on('payment.failed', function (response: any) {
+        setIsProcessing(false);
+        console.error('Payment failed:', response.error);
+        alert(
+          `Payment failed: ${
+            response.error.description || response.error.reason || 'Unknown error'
+          }`
+        );
       });
 
-      let orderData;
-      const responseText = await response.text();
-      try {
-        orderData = JSON.parse(responseText);
-      } catch (e) {
-        console.error('Failed to parse backend response:', responseText);
-        throw new Error('Invalid response from server');
-      }
-
-      if (!response.ok) {
-        throw new Error(orderData.error || 'Failed to create order');
-      }
-
-      // 2. Initialize Razorpay with order_id
-      const options = {
-      key: razorpayKeyId,
-      order_id: orderData.id,
-      amount: 9900, // Amount is in currency subunits. Default currency is INR. Hence, 9900 refers to 99 INR
-      currency: 'INR',
-      name: 'Praxo AI',
-      description: 'Upgrade to Pro',
-      image: '/logo.png',
-      handler: async function (response: any) {
-        // Payment successful
-        try {
-          await upgradeToPro();
-          alert('Payment successful! You are now a Pro user.');
-        } catch (error) {
-          console.error('Error upgrading to pro:', error);
-          alert('Payment successful but failed to upgrade. Please contact support.');
-        } finally {
-          setIsProcessing(false);
-        }
-      },
-      prefill: {
-        email: userEmail,
-      },
-      theme: {
-        color: '#9333ea', // purple-600
-      },
-      modal: {
-        ondismiss: function () {
-          setIsProcessing(false);
-          alert('Payment cancelled.');
-        },
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.on('payment.failed', function (response: any) {
-      setIsProcessing(false);
-      console.error('Razorpay payment failed:', response.error);
-      alert(`Payment failed: ${response.error.description || response.error.reason || 'Unknown error'}`);
-    });
-    rzp.open();
+      rzp.open();
     } catch (error: any) {
-      console.error('Payment initialization failed:', error);
+      console.error('Payment init error:', error);
       alert(`Failed to initialize payment: ${error.message}`);
       setIsProcessing(false);
     }
