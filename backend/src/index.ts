@@ -225,36 +225,4 @@ export async function createApp(
   });
 
 
-  // Create Razorpay Order
-  app.post("/api/public/create-razorpay-order", async (c) => {
-    const { amount, currency = "INR" } = await c.req.json();
-
-    const key_id = edgespark.secret.get("RAZORPAY_KEY_ID");
-    const key_secret = edgespark.secret.get("RAZORPAY_KEY_SECRET");
-
-    if (!key_id || !key_secret) {
-      return c.json({ error: "Razorpay credentials not configured" }, 500);
-    }
-
-    try {
-      const razorpay = new Razorpay({
-        key_id,
-        key_secret,
-      });
-
-      const options = {
-        amount: amount, // amount in smallest currency unit
-        currency,
-        receipt: `receipt_${Date.now()}`,
-      };
-
-      const order = await razorpay.orders.create(options);
-      return c.json(order);
-    } catch (error: any) {
-      console.error("Razorpay order creation failed:", error);
-      return c.json({ error: error.message || "Failed to create order" }, 500);
-    }
-  });
-
-  return app;
-}
+  
