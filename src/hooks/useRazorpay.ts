@@ -32,6 +32,7 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
+      console.log("🔥 FRONTEND EMAIL:", userEmail);
       const response = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
@@ -42,6 +43,7 @@ export const useRazorpay = () => {
           body: JSON.stringify({
             amount: 9900,
             currency: 'INR',
+            user_email: userEmail,
           }),
         }
       );
