@@ -1,4 +1,4 @@
-console.log("🔥 NEW RAZORPAY BUILD V2 LOADED");
+console.log("🔥 FINAL RAZORPAY CLEAN BUILD");
 
 import { useState } from 'react';
 import { useUsageStore } from '../store/usage';
@@ -15,78 +15,57 @@ export const useRazorpay = () => {
 
     const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    console.log("🚀 Payment started");
+    console.log("🔥 USING SUPABASE DIRECT CALL");
     console.log("Supabase URL:", supabaseUrl);
-    console.log("Anon Key exists:", !!supabaseAnonKey);
 
-    if (!razorpayKeyId || !supabaseUrl || !supabaseAnonKey) {
-      alert('Payment configuration missing. Check environment variables.');
+    if (!razorpayKeyId || !supabaseUrl) {
+      alert('Missing config');
       return;
     }
 
     if (!window.Razorpay) {
-      alert('Razorpay SDK failed to load.');
+      alert('Razorpay SDK not loaded');
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      const requestUrl = `${supabaseUrl}/functions/v1/create-razorpay-order`;
+      const response = await fetch(
+        `${supabaseUrl}/functions/v1/create-razorpay-order`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: 9900,
+            currency: 'INR',
+          }),
+        }
+      );
 
-      console.log("📡 Calling:", requestUrl);
+      const data = await response.json();
 
-      const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-        },
-        body: JSON.stringify({
-          amount: 9900,
-          currency: 'INR',
-        }),
-      });
-
-      console.log("📥 Response status:", response.status);
-
-      const responseText = await response.text();
-      let data;
-
-      try {
-        data = JSON.parse(responseText);
-      } catch (e) {
-        console.error("❌ Invalid JSON:", responseText);
-        throw new Error("Invalid response from server");
-      }
-
-      console.log("✅ Order response:", data);
+      console.log("🔥 SUPABASE RESPONSE:", data);
 
       if (!response.ok || !data?.id) {
-        throw new Error(data?.error || "Order creation failed");
+        throw new Error("Order creation failed");
       }
 
-      const options = {
+      const rzp = new window.Razorpay({
         key: razorpayKeyId,
         order_id: data.id,
         amount: data.amount,
         currency: data.currency,
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
-        image: '/logo.png',
 
         handler: async function () {
-          try {
-            await upgradeToPro();
-            alert('Payment successful! You are now Pro 🚀');
-          } catch (error) {
-            console.error('Upgrade failed:', error);
-            alert('Payment done but upgrade failed. Contact support.');
-          } finally {
-            setIsProcessing(false);
-          }
+          await upgradeToPro();
+          alert("Payment successful 🚀");
+          setIsProcessing(false);
         },
 
         prefill: {
@@ -100,27 +79,15 @@ export const useRazorpay = () => {
         modal: {
           ondismiss: function () {
             setIsProcessing(false);
-            alert('Payment cancelled.');
           },
         },
-      };
-
-      const rzp = new window.Razorpay(options);
-
-      rzp.on('payment.failed', function (response: any) {
-        setIsProcessing(false);
-        console.error('❌ Payment failed:', response.error);
-        alert(
-          `Payment failed: ${
-            response.error.description || response.error.reason || 'Unknown error'
-          }`
-        );
       });
 
       rzp.open();
+
     } catch (error: any) {
-      console.error('❌ Payment init error FULL:', error);
-      alert(`Failed to initialize payment: ${error.message}`);
+      console.error("❌ PAYMENT ERROR:", error);
+      alert("Payment failed: " + error.message);
       setIsProcessing(false);
     }
   };
