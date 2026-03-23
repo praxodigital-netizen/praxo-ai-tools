@@ -13,11 +13,12 @@ export const useRazorpay = () => {
 
     const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
     console.log('Razorpay Key:', razorpayKeyId ? 'Loaded' : 'Missing');
     console.log('Supabase URL:', supabaseUrl);
 
-    if (!razorpayKeyId || !supabaseUrl) {
+    if (!razorpayKeyId || !supabaseUrl || !supabaseAnonKey) {
       alert('Payment configuration missing. Check environment variables.');
       return;
     }
@@ -30,14 +31,14 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
-      // 🔥 CALL SUPABASE FUNCTION (THIS IS THE FIX)
+      // 🔥 CALL SUPABASE FUNCTION
       const response = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${supabaseAnonKey}`, // ✅ FIXED (clean + reliable)
           },
           body: JSON.stringify({
             amount: 9900,
@@ -49,7 +50,7 @@ export const useRazorpay = () => {
       const data = await response.json();
       console.log('Order response:', data);
 
-      if (!response.ok || !data.id) {
+      if (!response.ok || !data?.id) {
         throw new Error(data?.error || 'Order creation failed');
       }
 
