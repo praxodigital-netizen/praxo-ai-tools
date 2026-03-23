@@ -1,3 +1,4 @@
+console.log("🔥 NEW RAZORPAY FILE LOADED");
 import { useState } from 'react';
 import { useUsageStore } from '../store/usage';
 
