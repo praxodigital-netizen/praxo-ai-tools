@@ -1,4 +1,5 @@
-console.log("🔥 NEW RAZORPAY FILE LOADED");
+console.log("🔥 NEW RAZORPAY BUILD V2 LOADED");
+
 import { useState } from 'react';
 import { useUsageStore } from '../store/usage';
 
@@ -16,8 +17,9 @@ export const useRazorpay = () => {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    console.log('Razorpay Key:', razorpayKeyId ? 'Loaded' : 'Missing');
-    console.log('Supabase URL:', supabaseUrl);
+    console.log("🚀 Payment started");
+    console.log("Supabase URL:", supabaseUrl);
+    console.log("Anon Key exists:", !!supabaseAnonKey);
 
     if (!razorpayKeyId || !supabaseUrl || !supabaseAnonKey) {
       alert('Payment configuration missing. Check environment variables.');
@@ -32,36 +34,38 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
-      const response = await fetch(
-        `${supabaseUrl}/functions/v1/create-razorpay-order`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseAnonKey}`,
-          },
-          body: JSON.stringify({
-            amount: 9900,
-            currency: 'INR',
-          }),
-        }
-      );
+      const requestUrl = `${supabaseUrl}/functions/v1/create-razorpay-order`;
 
-      // 🔥 SAFE RESPONSE HANDLING
+      console.log("📡 Calling:", requestUrl);
+
+      const response = await fetch(requestUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({
+          amount: 9900,
+          currency: 'INR',
+        }),
+      });
+
+      console.log("📥 Response status:", response.status);
+
       const responseText = await response.text();
       let data;
 
       try {
         data = JSON.parse(responseText);
       } catch (e) {
-        console.error('Invalid JSON response:', responseText);
-        throw new Error('Invalid response from server');
+        console.error("❌ Invalid JSON:", responseText);
+        throw new Error("Invalid response from server");
       }
 
-      console.log('Order response:', data);
+      console.log("✅ Order response:", data);
 
       if (!response.ok || !data?.id) {
-        throw new Error(data?.error || 'Order creation failed');
+        throw new Error(data?.error || "Order creation failed");
       }
 
       const options = {
@@ -105,7 +109,7 @@ export const useRazorpay = () => {
 
       rzp.on('payment.failed', function (response: any) {
         setIsProcessing(false);
-        console.error('Payment failed:', response.error);
+        console.error('❌ Payment failed:', response.error);
         alert(
           `Payment failed: ${
             response.error.description || response.error.reason || 'Unknown error'
@@ -115,7 +119,7 @@ export const useRazorpay = () => {
 
       rzp.open();
     } catch (error: any) {
-      console.error('Payment init error:', error);
+      console.error('❌ Payment init error FULL:', error);
       alert(`Failed to initialize payment: ${error.message}`);
       setIsProcessing(false);
     }
