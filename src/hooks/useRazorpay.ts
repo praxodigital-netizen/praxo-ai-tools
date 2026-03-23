@@ -4,11 +4,17 @@ import { useState } from 'react';
 import { useUsageStore } from '../store/usage';
 
 export const useRazorpay = () => {
-  const { userEmail, upgradeToPro } = useUsageStore();
+  const store = useUsageStore();
+  const userEmail = store.userEmail;
+  const upgradeToPro = store.upgradeToPro;
+
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (onLoginRequired: () => void) => {
-    if (!userEmail) {
+
+    // ✅ EXTRA SAFETY CHECK
+    if (!userEmail || userEmail === 'test@example.com') {
+      console.warn("❌ Invalid email:", userEmail);
       onLoginRequired();
       return;
     }
@@ -17,6 +23,7 @@ export const useRazorpay = () => {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
     console.log("🔥 USING SUPABASE DIRECT CALL");
+    console.log("🔥 FRONTEND EMAIL:", userEmail);
     console.log("Supabase URL:", supabaseUrl);
 
     if (!razorpayKeyId || !supabaseUrl) {
@@ -32,7 +39,6 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
-      console.log("🔥 FRONTEND EMAIL:", userEmail);
       const response = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
@@ -43,7 +49,7 @@ export const useRazorpay = () => {
           body: JSON.stringify({
             amount: 9900,
             currency: 'INR',
-            user_email: userEmail,
+            user_email: userEmail, // ✅ FINAL FIX
           }),
         }
       );
@@ -53,7 +59,7 @@ export const useRazorpay = () => {
       console.log("🔥 SUPABASE RESPONSE:", data);
 
       if (!response.ok || !data?.id) {
-        throw new Error("Order creation failed");
+        throw new Error(data?.error || "Order creation failed");
       }
 
       const rzp = new window.Razorpay({
@@ -65,7 +71,10 @@ export const useRazorpay = () => {
         description: 'Upgrade to Pro',
 
         handler: async function () {
+          console.log("🔥 PAYMENT SUCCESS for:", userEmail);
+
           await upgradeToPro();
+
           alert("Payment successful 🚀");
           setIsProcessing(false);
         },
@@ -80,6 +89,7 @@ export const useRazorpay = () => {
 
         modal: {
           ondismiss: function () {
+            console.log("⚠️ Payment popup closed");
             setIsProcessing(false);
           },
         },
