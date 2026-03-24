@@ -53,6 +53,7 @@ export const ViralHookGenerator: React.FC = () => {
   body: JSON.stringify({ topic, language, tone, browserId })
 });
       const data = await res.json();
+      console.log("API RESPONSE:", data);
 
       if (!res.ok) {
         throw new Error(data.error || 'Failed to generate hooks');
@@ -62,7 +63,15 @@ export const ViralHookGenerator: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
 
-      setResults(data.result);
+      if (!data || !data.result) {
+  console.log("❌ INVALID RESPONSE:", data);
+  throw new Error("Invalid response from server");
+}
+
+console.log("✅ API RESPONSE:", data);
+
+setResults(data.result);
+await incrementCount();
       await incrementCount();
       
       if (window.gtag) {
