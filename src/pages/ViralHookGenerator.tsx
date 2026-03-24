@@ -41,7 +41,9 @@ export const ViralHookGenerator: React.FC = () => {
     setResults([]);
 
     try {
-      const res = await client.api.fetch('/api/public/generate/hooks', {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+
+      const res = await fetch(`${supabaseUrl}/functions/v1/generate-hooks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic, language, tone, browserId })
@@ -85,7 +87,7 @@ export const ViralHookGenerator: React.FC = () => {
   };
 
   const handleShare = async (text: string) => {
-    const fullShareText = `Check this viral content I generated using Praxo AI Tools 🚀\n\n${text}\n\nTry it here: https://praxoaitools.com`;
+    const fullShareText = Check this viral content I generated using Praxo AI Tools 🚀\n\n${text}\n\nTry it here: https://praxoaitools.com;
     
     if (navigator.share) {
       try {
