@@ -87,7 +87,7 @@ export const ViralHookGenerator: React.FC = () => {
   };
 
   const handleShare = async (text: string) => {
-    const fullShareText = Check this viral content I generated using Praxo AI Tools 🚀\n\n${text}\n\nTry it here: https://praxoaitools.com;
+    const fullShareText = `Check this viral content I generated using Praxo AI Tools 🚀\n\n${text}\n\nTry it here: https://praxoaitools.com`;
     
     if (navigator.share) {
       try {
