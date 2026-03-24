@@ -59,16 +59,10 @@ export const ViralHookGenerator: React.FC = () => {
         throw new Error(data.error || 'Failed to generate hooks');
       }
 
-      if (!isPro) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      }
-
       if (!data || !data.result) {
   console.log("❌ INVALID RESPONSE:", data);
   throw new Error("Invalid response from server");
 }
-
-console.log("✅ API RESPONSE:", data);
 
 console.log("✅ API RESPONSE:", data);
 
@@ -77,11 +71,16 @@ if (!data || !data.result) {
   throw new Error("Invalid response from server");
 }
 
+console.log("✅ API RESPONSE:", data);
+
 // ✅ Always set results
 setResults(data.result);
 
-// ✅ Always increment ONCE after success
+// ✅ Increment once
 await incrementCount();
+
+// ✅ Stop loader immediately (important for PRO fix)
+setLoading(false);
 
 if (window.gtag) {
   window.gtag('event', 'use_credit', {
