@@ -44,9 +44,10 @@ export const CaptionGenerator: React.FC = () => {
 const res = await fetch(`${supabaseUrl}/functions/v1/generate-captions`, {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-  },
+  'Content-Type': 'application/json',
+  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+},
   body: JSON.stringify({
     topic,
     language,
