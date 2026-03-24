@@ -5,11 +5,22 @@ import { eq } from "drizzle-orm";
 import OpenAI from "openai";
 import Razorpay from 'razorpay';
 
+// ✅ CORS HEADERS (NEW)
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "https://www.praxoaitools.in",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+};
 
 export async function createApp(
   edgespark: Client<typeof tables>
 ): Promise<Hono> {
   const app = new Hono();
+
+  // ✅ GLOBAL OPTIONS HANDLER (NEW)
+  app.options("*", (c) => {
+    return c.text("ok", 200, corsHeaders);
+  });
 
   // Helper to check and update usage
   async function checkUsage(browserId: string) {
@@ -26,7 +37,6 @@ export async function createApp(
     const today = new Date().toISOString().split("T")[0];
 
     if (!usage) {
-      // First time user
       await edgespark.db
         .insert(tables.usageTracking)
         .values({
@@ -40,11 +50,10 @@ export async function createApp(
     }
 
     if (usage.isPro === 1) {
-      return { allowed: true, isPro: true }; // Pro users have unlimited
+      return { allowed: true, isPro: true };
     }
 
     if (usage.lastGenerationDate !== today) {
-      // Reset count for new day
       await edgespark.db
         .update(tables.usageTracking)
         .set({
@@ -62,7 +71,6 @@ export async function createApp(
       return { allowed: false, error: "You've reached your daily limit. Upgrade to Pro to continue." };
     }
 
-    // Increment count
     await edgespark.db
       .update(tables.usageTracking)
       .set({
@@ -86,18 +94,18 @@ export async function createApp(
     const today = new Date().toISOString().split("T")[0];
     
     if (!usage) {
-      return c.json({ count: 0, limit: 10, isPro: false });
+      return c.json({ count: 0, limit: 10, isPro: false }, 200, corsHeaders);
     }
 
     if (usage.lastGenerationDate !== today) {
-      return c.json({ count: 0, limit: 10, isPro: usage.isPro === 1 });
+      return c.json({ count: 0, limit: 10, isPro: usage.isPro === 1 }, 200, corsHeaders);
     }
 
     return c.json({ 
       count: usage.generationsCount || 0, 
       limit: 10, 
       isPro: usage.isPro === 1 
-    });
+    }, 200, corsHeaders);
   });
 
   // Generate Viral Hooks
@@ -106,11 +114,11 @@ export async function createApp(
     
     const usageCheck = await checkUsage(browserId);
     if (!usageCheck.allowed) {
-      return c.json({ error: usageCheck.error }, 403);
+      return c.json({ error: usageCheck.error }, 403, corsHeaders);
     }
 
     const apiKey = edgespark.secret.get("OPENAI_API_KEY");
-    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500);
+    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500, corsHeaders);
 
     const openai = new OpenAI({ apiKey });
     const numOutputs = usageCheck.isPro ? 5 : 3;
@@ -133,13 +141,11 @@ export async function createApp(
 
       const content = response.choices[0].message.content;
       const hooks = JSON.parse(content || '{"hooks": []}');
-      
-      // Handle different possible JSON structures from the model
       const result = Array.isArray(hooks) ? hooks : (hooks.hooks || Object.values(hooks)[0] || []);
 
-      return c.json({ result: result.slice(0, numOutputs) });
+      return c.json({ result: result.slice(0, numOutputs) }, 200, corsHeaders);
     } catch (error: any) {
-      return c.json({ error: error.message }, 500);
+      return c.json({ error: error.message }, 500, corsHeaders);
     }
   });
 
@@ -149,11 +155,11 @@ export async function createApp(
     
     const usageCheck = await checkUsage(browserId);
     if (!usageCheck.allowed) {
-      return c.json({ error: usageCheck.error }, 403);
+      return c.json({ error: usageCheck.error }, 403, corsHeaders);
     }
 
     const apiKey = edgespark.secret.get("OPENAI_API_KEY");
-    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500);
+    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500, corsHeaders);
 
     const openai = new OpenAI({ apiKey });
     const numOutputs = usageCheck.isPro ? 5 : 3;
@@ -176,12 +182,11 @@ export async function createApp(
 
       const content = response.choices[0].message.content;
       const captions = JSON.parse(content || '{"captions": []}');
-      
       const result = Array.isArray(captions) ? captions : (captions.captions || Object.values(captions)[0] || []);
 
-      return c.json({ result: result.slice(0, numOutputs) });
+      return c.json({ result: result.slice(0, numOutputs) }, 200, corsHeaders);
     } catch (error: any) {
-      return c.json({ error: error.message }, 500);
+      return c.json({ error: error.message }, 500, corsHeaders);
     }
   });
 
@@ -191,11 +196,11 @@ export async function createApp(
     
     const usageCheck = await checkUsage(browserId);
     if (!usageCheck.allowed) {
-      return c.json({ error: usageCheck.error }, 403);
+      return c.json({ error: usageCheck.error }, 403, corsHeaders);
     }
 
     const apiKey = edgespark.secret.get("OPENAI_API_KEY");
-    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500);
+    if (!apiKey) return c.json({ error: "OpenAI not configured" }, 500, corsHeaders);
 
     const openai = new OpenAI({ apiKey });
 
@@ -218,11 +223,11 @@ export async function createApp(
       const content = response.choices[0].message.content;
       const parsed = JSON.parse(content || '{"prompt": ""}');
 
-      return c.json({ result: parsed.prompt || Object.values(parsed)[0] || "" });
+      return c.json({ result: parsed.prompt || Object.values(parsed)[0] || "" }, 200, corsHeaders);
     } catch (error: any) {
-      return c.json({ error: error.message }, 500);
+      return c.json({ error: error.message }, 500, corsHeaders);
     }
   });
 
-
-  
+  return app;
+}
