@@ -46,9 +46,10 @@ export const ViralHookGenerator: React.FC = () => {
       const res = await fetch(`${supabaseUrl}/functions/v1/generate-hooks`, {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY
-  },
+  'Content-Type': 'application/json',
+  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+},
   body: JSON.stringify({ topic, language, tone, browserId })
 });
       const data = await res.json();
