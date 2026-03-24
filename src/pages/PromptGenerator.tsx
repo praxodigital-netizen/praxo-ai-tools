@@ -69,7 +69,7 @@ const res = await fetch(`${supabaseUrl}/functions/v1/generate-prompts`, {
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
 
-      setResults(data.result);
+      setResults(Array.isArray(data.result) ? data.result : [data.result]);
       await incrementCount();
       
       if (window.gtag) {
