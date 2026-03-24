@@ -70,14 +70,32 @@ export const useRazorpay = () => {
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
 
-        handler: async function () {
-          console.log("🔥 PAYMENT SUCCESS for:", userEmail);
+        handler: async function (response: any) {
+  console.log("🔥 PAYMENT SUCCESS:", response);
 
-          await upgradeToPro();
+  try {
+    await fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        razorpay_order_id: data.id,
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_signature: response.razorpay_signature,
+        user_email: userEmail,
+      }),
+    });
 
-          alert("Payment successful 🚀");
-          setIsProcessing(false);
-        },
+    await upgradeToPro();
+    alert("Payment successful 🚀");
+  } catch (err) {
+    console.error("Verification failed", err);
+    alert("Payment verification failed");
+  }
+
+  setIsProcessing(false);
+},
 
         prefill: {
           email: userEmail,
