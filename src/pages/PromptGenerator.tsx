@@ -255,11 +255,15 @@ const fullShareText = `Check this viral content I generated using Praxo AI Tools
                     animate={{ opacity: 1, y: 0 }}
                     className="group relative bg-black/50 border border-white/5 rounded-xl p-6 hover:border-green-500/30 transition-all flex-grow"
                   >
-                    {results.map((item, index) => (
-  <p key={index} className="text-gray-200 text-lg leading-relaxed whitespace-pre-wrap mb-3">
-    {item}
-  </p>
-))}
+                    {Array.isArray(results) && results.length > 0 ? (
+  results.map((item, index) => (
+    <p key={index} className="text-gray-200 text-lg leading-relaxed whitespace-pre-wrap mb-3">
+      {item}
+    </p>
+  ))
+) : (
+  <p className="text-gray-400">No results generated</p>
+)}
                     <div className="absolute top-4 right-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={handleShare}
