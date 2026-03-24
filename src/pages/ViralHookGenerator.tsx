@@ -72,9 +72,19 @@ if (!data || !data.result) {
 }
 
 console.log("✅ API RESPONSE:", data);
+const emojiList = ["🔥", "😳", "🚀", "🤯", "💡", "👀", "⚡"];
 
+const enhancedResults = data.result.map((hook: string) => {
+  const hasEmoji = /[\u{1F300}-\u{1FAFF}]/u.test(hook);
+  
+  if (hasEmoji) return hook;
+
+  const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+  return `${hook} ${randomEmoji}`;
+});
+
+setResults(enhancedResults);
 // ✅ Always set results
-setResults(data.result);
 
 // ✅ Increment once
 await incrementCount();
