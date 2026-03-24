@@ -70,9 +70,12 @@ export const ViralHookGenerator: React.FC = () => {
 
 console.log("✅ API RESPONSE:", data);
 
-setResults(data.result);
-await incrementCount();
-      await incrementCount();
+if (data && data.result) {
+  setResults(data.result);
+
+  // 🔥 ONLY increment ONCE after SUCCESS
+  await incrementCount();
+}
       
       if (window.gtag) {
         window.gtag('event', 'use_credit', {
