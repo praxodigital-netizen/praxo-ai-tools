@@ -75,6 +75,7 @@ if (data && data.result) {
 
   // 🔥 ONLY increment ONCE after SUCCESS
   await incrementCount();
+  setLoading(false);
 }
       
       if (window.gtag) {
