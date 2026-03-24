@@ -69,7 +69,20 @@ const res = await fetch(`${supabaseUrl}/functions/v1/generate-prompts`, {
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
 
-      setResults(Array.isArray(data.result) ? data.result : [data.result]);
+      const rawResult = data.result;
+
+// Normalize everything to string array
+const normalizedResults = Array.isArray(rawResult)
+  ? rawResult.map((item) =>
+      typeof item === "object" ? item.prompt || JSON.stringify(item) : item
+    )
+  : [
+      typeof rawResult === "object"
+        ? rawResult.prompt || JSON.stringify(rawResult)
+        : rawResult,
+    ];
+
+setResults(normalizedResults);
       await incrementCount();
       
       if (window.gtag) {
