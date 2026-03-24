@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, CheckCircle2, Loader2, MessageSquare, Share2 } from 'lucide-react';
 import { useUsageStore } from '../store/usage';
-import { client } from '../api/client';
 import { UpgradeModal } from '../components/UpgradeModal';
 import { ShareModal } from '../components/ShareModal';
 
@@ -38,39 +37,53 @@ export const CaptionGenerator: React.FC = () => {
 
     setLoading(true);
     setError(null);
-    setResults([]);
 
     try {
-      const res = await client.api.fetch('/api/public/generate/captions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, language, tone, browserId })
-      });
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
-      const data = await res.json();
+const res = await fetch(`${supabaseUrl}/functions/v1/generate-captions`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+  },
+  body: JSON.stringify({
+    topic,
+    language,
+    tone,
+    isPro
+  }),
+});
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to generate captions');
-      }
+const data = await res.json();
 
-      if (!isPro) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      }
+if (!res.ok) {
+  throw new Error(data.error || 'Failed to generate captions');
+}
 
-      setResults(data.result);
-      await incrementCount();
-      
-      if (window.gtag) {
-        window.gtag('event', 'use_credit', {
-          tool: 'caption_generator'
-        });
-      }
-      
-      const newCount = getDisplayCount();
-      if (!isPro && userEmail && newCount === 3) {
-        setUpgradeModalType('soft');
-        setShowUpgradeModal(true);
-      }
+// ✅ IMPORTANT VALIDATION
+if (!data || !data.result) {
+  throw new Error("Invalid response from server");
+}
+
+// ✅ SET RESULTS
+setResults(data.result);
+
+// ✅ CREDIT ONCE
+await incrementCount();
+
+// analytics
+if (window.gtag) {
+  window.gtag('event', 'use_credit', {
+    tool: 'caption_generator'
+  });
+}
+
+const newCount = getDisplayCount();
+if (!isPro && userEmail && newCount === 3) {
+  setUpgradeModalType('soft');
+  setShowUpgradeModal(true);
+}
     } catch (err: any) {
       setError(err.message);
     } finally {
