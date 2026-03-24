@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, CheckCircle2, Loader2, PenTool, Share2 } from 'lucide-react';
 import { useUsageStore } from '../store/usage';
-import { client } from '../api/client';
 import { UpgradeModal } from '../components/UpgradeModal';
 import { ShareModal } from '../components/ShareModal';
 
@@ -11,7 +10,7 @@ export const PromptGenerator: React.FC = () => {
   const [language, setLanguage] = useState('English');
   const [tone, setTone] = useState('Detailed');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
+  const [results, setResults] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -38,16 +37,29 @@ export const PromptGenerator: React.FC = () => {
 
     setLoading(true);
     setError(null);
-    setResult(null);
 
     try {
-      const res = await client.api.fetch('/api/public/generate/prompts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, language, tone, browserId })
-      });
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+
+const res = await fetch(`${supabaseUrl}/functions/v1/generate-prompts`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+    'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+  },
+  body: JSON.stringify({
+    topic,
+    language,
+    tone,
+    isPro
+  }),
+});
 
       const data = await res.json();
+      if (!data || !data.result) {
+  throw new Error("Invalid response from server");
+}
 
       if (!res.ok) {
         throw new Error(data.error || 'Failed to generate prompt');
@@ -57,7 +69,7 @@ export const PromptGenerator: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
 
-      setResult(data.result);
+      setResults(data.result);
       await incrementCount();
       
       if (window.gtag) {
@@ -79,15 +91,16 @@ export const PromptGenerator: React.FC = () => {
   };
 
   const copyToClipboard = () => {
-    if (!result) return;
-    navigator.clipboard.writeText(result);
+    if (results.length === 0) return;
+navigator.clipboard.writeText(results.join('\n\n'));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleShare = async () => {
-    if (!result) return;
-    const fullShareText = `Check this viral content I generated using Praxo AI Tools 🚀\n\n${result}\n\nTry it here: https://praxoaitools.com`;
+    if (results.length === 0) return;
+
+const fullShareText = `Check this viral content I generated using Praxo AI Tools 🚀\n\n${results.join('\n\n')}\n\nTry it here: https://praxoaitools.com`;
     
     if (navigator.share) {
       try {
@@ -99,7 +112,7 @@ export const PromptGenerator: React.FC = () => {
         console.error('Error sharing:', err);
       }
     } else {
-      setShareText(result);
+      setShareText(results.join('\n\n'));
       setShareModalOpen(true);
     }
   };
@@ -142,81 +155,81 @@ export const PromptGenerator: React.FC = () => {
             className="lg:col-span-5 space-y-6"
           >
             <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 shadow-xl">
-              <form onSubmit={handleGenerate} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    What do you want the AI to do?
-                  </label>
-                  <textarea
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                    placeholder="e.g., Write a blog post about AI, create a marketing strategy..."
-                    className="w-full h-32 bg-black/50 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all resize-none"
-                    required
-                  />
-                </div>
+             <form onSubmit={handleGenerate} className="space-y-6">
+  <div>
+    <label className="block text-sm font-medium text-gray-300 mb-2">
+      What do you want the AI to do?
+    </label>
+    <textarea
+      value={topic}
+      onChange={(e) => setTopic(e.target.value)}
+      placeholder="e.g., Write a blog post about AI, create a marketing strategy..."
+      className="w-full h-32 bg-black/50 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all resize-none"
+      required
+    />
+  </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Language
-                    </label>
-                    <select
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-all appearance-none"
-                    >
-                      <option value="English">English</option>
-                      <option value="Hindi">Hindi</option>
-                      <option value="Hinglish">Hinglish</option>
-                    </select>
-                  </div>
+  <div className="grid grid-cols-2 gap-4">
+    <div>
+      <label className="block text-sm font-medium text-gray-300 mb-2">
+        Language
+      </label>
+      <select
+        value={language}
+        onChange={(e) => setLanguage(e.target.value)}
+        className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-all appearance-none"
+      >
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Hinglish">Hinglish</option>
+      </select>
+    </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Detail Level
-                    </label>
-                    <select
-                      value={tone}
-                      onChange={(e) => setTone(e.target.value)}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-all appearance-none"
-                    >
-                      <option value="Detailed">Detailed</option>
-                      <option value="Concise">Concise</option>
-                      <option value="Expert">Expert</option>
-                      <option value="Creative">Creative</option>
-                    </select>
-                  </div>
-                </div>
+    <div>
+      <label className="block text-sm font-medium text-gray-300 mb-2">
+        Detail Level
+      </label>
+      <select
+        value={tone}
+        onChange={(e) => setTone(e.target.value)}
+        className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-all appearance-none"
+      >
+        <option value="Detailed">Detailed</option>
+        <option value="Concise">Concise</option>
+        <option value="Expert">Expert</option>
+        <option value="Creative">Creative</option>
+      </select>
+    </div>
+  </div>
 
-                <button
-                  type="submit"
-                  disabled={loading || !topic}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-6 h-6 animate-spin" />
-                      <span>Generating...</span>
-                    </>
-                  ) : (
-                    <>
-                      <PenTool className="w-6 h-6" />
-                      <span>Generate Prompt</span>
-                    </>
-                  )}
-                </button>
-                
-                {!isPro ? (
-                  <p className="text-center text-xs text-gray-500 mt-2">
-                    {displayLimit - displayCount} free credits remaining
-                  </p>
-                ) : (
-                  <p className="text-center text-sm text-purple-400 mt-2 font-medium flex items-center justify-center space-x-1">
-                    <span>🔥 Viral Mode Activated</span>
-                  </p>
-                )}
-              </form>
+  <button
+    type="submit"
+    disabled={loading || !topic}
+    className="w-full py-4 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+  >
+    {loading ? (
+      <>
+        <Loader2 className="w-6 h-6 animate-spin" />
+        <span>Generating...</span>
+      </>
+    ) : (
+      <>
+        <PenTool className="w-6 h-6" />
+        <span>Generate Prompt</span>
+      </>
+    )}
+  </button>
+
+  {!isPro ? (
+    <p className="text-center text-xs text-gray-500 mt-2">
+      {displayLimit - displayCount} free credits remaining
+    </p>
+  ) : (
+    <p className="text-center text-sm text-purple-400 mt-2 font-medium flex items-center justify-center space-x-1">
+      <span>🔥 Viral Mode Activated</span>
+    </p>
+  )}
+</form>
             </div>
           </motion.div>
 
@@ -231,7 +244,7 @@ export const PromptGenerator: React.FC = () => {
                 <div className="h-full flex items-center justify-center text-red-400 text-center p-6 bg-red-500/10 rounded-xl border border-red-500/20">
                   <p>{error}</p>
                 </div>
-              ) : result ? (
+              ) : results.length > 0 ? (
                 <div className="space-y-4 h-full flex flex-col">
                   <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
                     <PenTool className="w-5 h-5 text-green-400" />
@@ -242,7 +255,11 @@ export const PromptGenerator: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="group relative bg-black/50 border border-white/5 rounded-xl p-6 hover:border-green-500/30 transition-all flex-grow"
                   >
-                    <p className="text-gray-200 text-lg leading-relaxed whitespace-pre-wrap">{result}</p>
+                    {results.map((item, index) => (
+  <p key={index} className="text-gray-200 text-lg leading-relaxed whitespace-pre-wrap mb-3">
+    {item}
+  </p>
+))}
                     <div className="absolute top-4 right-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={handleShare}
