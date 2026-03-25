@@ -244,67 +244,97 @@ export const Home: React.FC = () => {
       <div className="text-4xl font-extrabold mb-6">
         ₹0<span className="text-lg text-gray-400 font-normal">/mo</span>
       </div>
+
       <ul className="space-y-4 mb-8 flex-1">
-        <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> 3 credits per day (guest)</li>
-        <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Login required for extended usage</li>
-        <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to 3 tools</li>
-        <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Standard quality output</li>
-        <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Ads may be shown</li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          3 credits per day (guest)
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Login required for extended usage
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Access to 3 tools
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Standard quality output
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Ads may be shown
+        </li>
       </ul>
-      <Link to="/tools" className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-center font-semibold transition-colors mb-3">
+
+      <Link
+        to="/tools"
+        className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-center font-semibold transition-colors mb-3"
+      >
         Get Started
       </Link>
+
       <div className="flex justify-center items-center text-xs text-gray-400">
-        <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> No credit card required</span>
+        <span className="flex items-center">
+          <CheckCircle2 className="w-3 h-3 mr-1" />
+          No credit card required
+        </span>
       </div>
     </div>
 
     {/* Pro Plan */}
-<div className="p-8 rounded-3xl bg-white/5 border border-purple-500 flex flex-col relative">
+    <div className="p-8 rounded-3xl bg-white/5 border border-purple-500 flex flex-col relative">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
+        🔥 Most Popular
+      </div>
 
-  {/* Badge */}
-  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
-    🔥 Most Popular
-  </div>
+      <h3 className="text-2xl font-bold mb-2">Pro</h3>
 
-  <h3 className="text-2xl font-bold mb-2">Pro</h3>
+      <div className="text-4xl font-extrabold mb-2">
+        <span className="line-through text-gray-500 text-2xl mr-2">₹99</span>
+        ₹29
+        <span className="text-lg text-gray-400 font-normal">/mo</span>
+      </div>
 
-  {/* Price */}
-  <div className="text-4xl font-extrabold mb-2">
-    <span className="line-through text-gray-500 text-2xl mr-2">₹99</span>
-    ₹29
-    <span className="text-lg text-gray-400 font-normal">/mo</span>
-  </div>
-
-  <p className="text-green-400 text-sm mb-6">
-    🔥 Limited launch offer • Only for first 100 users
-  </p>
-
-  {/* Features (MATCH STARTER STYLE) */}
-  <ul className="space-y-4 mb-8 flex-1">
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Unlimited credits</li>
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to all tools</li>
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Generate 5 results per request</li>
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Premium quality output</li>
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Faster generation</li>
-    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> No ads</li>
-  </ul>
-
-  {/* CTA (same style as starter button but highlighted) */}
-  <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition-colors mb-3">
-    Upgrade Now 🚀
-  </button>
-
-  <div className="flex justify-center items-center text-xs text-gray-400">
-    <span>Cancel anytime • No hidden charges</span>
-  </div>
-
-</div>
-
-      {/* Trust line */}
-      <p className="text-center text-gray-500 text-xs mt-3">
-        Cancel anytime • No hidden charges
+      <p className="text-green-400 text-sm mb-6">
+        🔥 Limited launch offer • Only for first 100 users
       </p>
+
+      <ul className="space-y-4 mb-8 flex-1">
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Unlimited credits
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Access to all tools
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Generate 5 results per request
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Premium quality output
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          Faster generation
+        </li>
+        <li className="flex items-center text-gray-300">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
+          No ads
+        </li>
+      </ul>
+
+      <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition-colors mb-3">
+        Upgrade Now 🚀
+      </button>
+
+      <div className="flex justify-center items-center text-xs text-gray-400">
+        <span>Cancel anytime • No hidden charges</span>
+      </div>
     </div>
   </div>
 </section>
