@@ -575,21 +575,40 @@ useEffect(() => {
 </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
-          <p className="text-gray-400">Have questions or need help?</p>
-        </div>
-        
-        <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center">
-          <p className="text-lg text-gray-300 mb-6">Reach out to us anytime:</p>
-          <a href="mailto:praxodigital@gmail.com" className="inline-flex items-center justify-center space-x-2 text-xl font-bold text-white hover:text-purple-400 transition-colors mb-6">
-            <span>📧</span>
-            <span>praxodigital@gmail.com</span>
-          </a>
-          <p className="text-sm text-gray-500">We usually respond within 24 hours.</p>
-        </div>
-      </section>
+<section id="contact" className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
+
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold mb-4">Need Help?</h2>
+    <p className="text-gray-400">We’re here to support you anytime.</p>
+  </div>
+
+  <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center hover:border-purple-500/40 hover:scale-[1.02] transition-all duration-300">
+
+    <p className="text-lg text-gray-300 mb-4">
+      Have questions about Praxo AI or need assistance?
+    </p>
+
+    {/* Email Button */}
+    <a
+      href="mailto:praxodigital@gmail.com"
+      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition mb-4"
+    >
+      📧 Email Us
+    </a>
+
+    {/* Email Text */}
+    <p className="text-sm text-gray-400 mb-2">
+      praxodigital@gmail.com
+    </p>
+
+    {/* Trust Line */}
+    <p className="text-xs text-gray-500">
+      ⚡ We usually respond within 24 hours
+    </p>
+
+  </div>
+
+</section>
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)} 
