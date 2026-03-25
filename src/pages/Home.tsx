@@ -260,45 +260,46 @@ export const Home: React.FC = () => {
     </div>
 
     {/* Pro Plan */}
-    <div className="relative border border-purple-500 rounded-2xl p-6 bg-black/60 shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-      {/* Badge */}
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
-        🔥 Most Popular
-      </div>
+<div className="p-8 rounded-3xl bg-white/5 border border-purple-500 flex flex-col relative">
 
-      <h3 className="text-xl font-semibold text-white mb-2 text-center">
-        Pro Plan
-      </h3>
+  {/* Badge */}
+  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
+    🔥 Most Popular
+  </div>
 
-      {/* Price */}
-      <div className="text-center mb-4">
-        <div>
-          <span className="line-through text-gray-500 text-lg">₹99</span>
-          <span className="text-4xl font-bold text-white ml-2">₹29</span>
-          <span className="text-gray-400 text-sm">/month</span>
-        </div>
+  <h3 className="text-2xl font-bold mb-2">Pro</h3>
 
-        <p className="text-green-400 text-sm mt-1">
-          🔥 Limited time launch offer
-        </p>
+  {/* Price */}
+  <div className="text-4xl font-extrabold mb-2">
+    <span className="line-through text-gray-500 text-2xl mr-2">₹99</span>
+    ₹29
+    <span className="text-lg text-gray-400 font-normal">/mo</span>
+  </div>
 
-        <p className="text-yellow-400 text-xs mt-1">
-          ⚡ Only for first 100 users
-        </p>
-      </div>
+  <p className="text-green-400 text-sm mb-6">
+    🔥 Limited launch offer • Only for first 100 users
+  </p>
 
-      {/* Features */}
-      <ul className="space-y-3 text-gray-300 text-sm mb-6">
-        <li>✅ Unlimited generations</li>
-        <li>✅ Faster AI responses</li>
-        <li>✅ Access to all tools</li>
-        <li>✅ Premium output quality</li>
-      </ul>
+  {/* Features (MATCH STARTER STYLE) */}
+  <ul className="space-y-4 mb-8 flex-1">
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Unlimited credits</li>
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to all tools</li>
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Generate 5 results per request</li>
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Premium quality output</li>
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Faster generation</li>
+    <li className="flex items-center text-gray-300"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> No ads</li>
+  </ul>
 
-      {/* CTA */}
-      <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition">
-        Upgrade Now 🚀
-      </button>
+  {/* CTA (same style as starter button but highlighted) */}
+  <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition-colors mb-3">
+    Upgrade Now 🚀
+  </button>
+
+  <div className="flex justify-center items-center text-xs text-gray-400">
+    <span>Cancel anytime • No hidden charges</span>
+  </div>
+
+</div>
 
       {/* Trust line */}
       <p className="text-center text-gray-500 text-xs mt-3">
