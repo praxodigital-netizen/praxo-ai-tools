@@ -304,7 +304,6 @@ export const Home: React.FC = () => {
     Cancel anytime • No hidden charges
   </p>
 </div>
-</div>
 </section>
 
       {/* Who is this for? */}
