@@ -271,18 +271,20 @@ export const Home: React.FC = () => {
 
   {/* Price */}
   <div className="text-center mb-4">
+  <div>
     <span className="line-through text-gray-500 text-lg">₹99</span>
     <span className="text-4xl font-bold text-white ml-2">₹29</span>
     <span className="text-gray-400 text-sm">/month</span>
-
-    <p className="text-green-400 text-sm mt-1">
-      🔥 Limited time launch offer
-    </p>
-
-    <p className="text-yellow-400 text-xs mt-1">
-      ⚡ Only for first 100 users
-    </p>
   </div>
+
+  <p className="text-green-400 text-sm mt-1">
+    🔥 Limited time launch offer
+  </p>
+
+  <p className="text-yellow-400 text-xs mt-1">
+    ⚡ Only for first 100 users
+  </p>
+</div>
 
   {/* Features */}
   <ul className="space-y-3 text-gray-300 text-sm mb-6">
