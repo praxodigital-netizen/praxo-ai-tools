@@ -9,6 +9,7 @@ import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, 
 export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const { isPro } = useUsageStore();
   const handleUpgrade = async () => {
   try {
@@ -41,8 +42,12 @@ export const Home: React.FC = () => {
       order_id: order.id,
 
       handler: function () {
-        alert("Payment successful 🎉");
-      },
+  setShowSuccess(true);
+
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000);
+}
 
       theme: {
         color: "#7c3aed",
@@ -57,6 +62,11 @@ export const Home: React.FC = () => {
     alert("Payment failed");
   }
 };
+{showSuccess && (
+  <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50">
+    🎉 Payment successful! You are now Pro 🚀
+  </div>
+)}
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden">
       {/* Hero Section */}
