@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRazorpay } from '../hooks/useRazorpay';
 import { useUsageStore } from '../store/usage';
 import { LoginModal } from '../components/LoginModal';
