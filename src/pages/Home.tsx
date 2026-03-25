@@ -376,7 +376,7 @@ export const Home: React.FC = () => {
       </ul>
 
       <button
-  onClick={handleUpgrade}
+  onClick={handlePayment}
   className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition"
 >
   Upgrade to Pro 🚀
