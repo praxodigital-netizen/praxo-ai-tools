@@ -25,17 +25,13 @@ export const Home: React.FC = () => {
             <Sparkles className="w-4 h-4" />
             <span>Powered by Advanced AI</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 break-words w-full">
-            <span>Create viral content</span>
-            <span className="hidden md:block w-full h-0"></span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 flex items-center">
-              in seconds <Rocket className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 ml-2 sm:ml-4 text-blue-500 flex-shrink-0" style={{ fill: 'url(#rocket-gradient)' }} />
-            </span>
-          </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">
+  Stop thinking content. Start going viral 🚀
+</h1>
           
           <h2 className="text-2xl sm:text-3xl font-semibold text-gray-300 mb-8 max-w-3xl mx-auto">
-            AI tools for creators, freelancers & business owners
-          </h2>
+  Generate scroll-stopping hooks, captions & AI prompts in seconds.
+</h2>
           
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-sm text-orange-300 font-medium">
@@ -59,15 +55,9 @@ export const Home: React.FC = () => {
               to="/tools" 
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center group"
             >
-              Try Free Tools
+              Try Free Now
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a 
-              href="#tools" 
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 text-white font-semibold hover:bg-white/10 border border-white/10 transition-colors flex items-center justify-center"
-            >
-              Generate Now
-            </a>
           </div>
           <p className="text-sm text-gray-500 font-medium">
             No design skills needed • Instant results • Free to start
