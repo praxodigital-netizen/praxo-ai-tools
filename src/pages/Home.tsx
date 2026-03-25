@@ -308,7 +308,6 @@ export const Home: React.FC = () => {
     </div>
   </div>
 </section>
-      
       {/* Who is this for? */}
       <section id="features" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
         <div className="text-center mb-16">
