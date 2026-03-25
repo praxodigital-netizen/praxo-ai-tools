@@ -65,6 +65,53 @@ export const Home: React.FC = () => {
         </motion.div>
       </section>
 
+      {/* Example Output Section */}
+      <p className="text-center text-gray-500 mt-8">
+  ⚡ New ideas generated every second
+</p>
+<section className="py-20 border-t border-white/10">
+  <div className="max-w-6xl mx-auto px-4 text-center">
+
+    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      See exactly what you’ll get
+    </h2>
+
+    <p className="text-gray-400 text-lg mb-12">
+      Real examples generated using Praxo AI Tools
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      {/* Viral Hook */}
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left hover:border-purple-500/40 transition-all">
+        <p className="text-purple-400 text-sm mb-2">🔥 Viral Hook</p>
+        <p className="text-white text-lg font-medium">
+          “Nobody talks about this… but this is why your content isn’t growing 🚨”
+        </p>
+      </div>
+
+      {/* Caption */}
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left hover:border-blue-500/40 transition-all">
+        <p className="text-blue-400 text-sm mb-2">💬 Engaging Caption</p>
+        <p className="text-white text-lg font-medium">
+          “You don’t need more content… you need better hooks.  
+          Start small. Stay consistent. Watch what happens. 🚀  
+          #GrowthMindset #Creators”
+        </p>
+      </div>
+
+      {/* AI Prompt */}
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left hover:border-pink-500/40 transition-all">
+        <p className="text-pink-400 text-sm mb-2">🧠 AI Prompt</p>
+        <p className="text-white text-lg font-medium">
+          “Act as a social media expert. Generate 10 high-converting Instagram reel ideas for a fitness coach targeting beginners. Include hooks, captions, and CTA.”
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
       {/* Business Section */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
