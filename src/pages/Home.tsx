@@ -112,55 +112,6 @@ export const Home: React.FC = () => {
   </div>
 </section>
 
-      {/* Business Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">🔥 See What You Can Create Instantly</h2>
-          <p className="text-gray-400">Real examples generated using Praxo AI Tools</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
-            <div className="flex items-center space-x-2 mb-4">
-              <Zap className="w-5 h-5 text-purple-400" />
-              <h3 className="font-bold text-white">Viral Hook</h3>
-            </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <p className="text-gray-300 font-medium">"Stop scrolling — this one habit is silently killing your Instagram growth 🚀"</p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
-            <div className="flex items-center space-x-2 mb-4">
-              <MessageSquare className="w-5 h-5 text-blue-400" />
-              <h3 className="font-bold text-white">Engaging Caption</h3>
-            </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <p className="text-gray-300 font-medium">Nobody talks about this, but consistency is NOT enough anymore.
-
-If you want real growth in 2026, you need strategy + execution.
-
-Save this before your next post 👇🔥</p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-black border border-white/10 shadow-lg">
-            <div className="flex items-center space-x-2 mb-4">
-              <PenTool className="w-5 h-5 text-pink-400" />
-              <h3 className="font-bold text-white">AI Prompt</h3>
-            </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <p className="text-gray-300 font-medium">Act as a viral content strategist.
-
-Create a 30-second Instagram reel script for a fitness coach targeting beginners, including:
-- Hook (first 3 seconds)
-- Main value
-- CTA for engagement</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* What You Can Achieve Section */}
 <section className="py-20 border-t border-white/10">
   <div className="max-w-5xl mx-auto px-4 text-center">
