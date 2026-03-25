@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
   setTimeout(() => {
     window.location.reload();
   }, 2000);
-}
+},
 
       theme: {
         color: "#7c3aed",
