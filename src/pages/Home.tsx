@@ -114,35 +114,6 @@ Create a 30-second Instagram reel script for a fitness coach targeting beginners
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="w-full bg-white/[0.02] border-y border-white/5 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-4">
-                <Star className="w-6 h-6 text-yellow-500" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Used by creators</h3>
-              <p className="text-sm text-gray-400">Helping creators generate high-converting content</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-blue-500" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Generates content in seconds</h3>
-              <p className="text-sm text-gray-400">Instant AI-powered results for faster workflow</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center mb-4">
-                <Globe className="w-6 h-6 text-green-500" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Built in India for global creators</h3>
-              <p className="text-sm text-gray-400">Designed for creators worldwide</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* What You Can Create Section */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
