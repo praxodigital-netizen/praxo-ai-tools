@@ -609,67 +609,6 @@ useEffect(() => {
   </div>
 
 </section>
-      {/* Footer */}
-<footer className="w-full border-t border-white/10 mt-24">
-  
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-    {/* Top Brand Section */}
-    <div className="text-center mb-12">
-      <h3 className="text-2xl font-bold mb-2">
-        Praxo AI Tools 🚀
-      </h3>
-      <p className="text-gray-400 max-w-xl mx-auto">
-        Turn your ideas into viral content in seconds. Built for creators, founders & freelancers.
-      </p>
-    </div>
-
-    {/* Links Section */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
-
-      {/* Product */}
-      <div>
-        <h4 className="font-semibold mb-4 text-white">Product</h4>
-        <ul className="space-y-2 text-gray-400">
-          <li><a href="/" className="hover:text-purple-400 transition">Home</a></li>
-          <li><a href="/tools" className="hover:text-purple-400 transition">Tools</a></li>
-          <li><a href="#pricing" className="hover:text-purple-400 transition">Pricing</a></li>
-        </ul>
-      </div>
-
-      {/* Resources */}
-      <div>
-        <h4 className="font-semibold mb-4 text-white">Resources</h4>
-        <ul className="space-y-2 text-gray-400">
-          <li><a href="#faq" className="hover:text-purple-400 transition">FAQ</a></li>
-          <li><a href="#contact" className="hover:text-purple-400 transition">Contact</a></li>
-        </ul>
-      </div>
-
-      {/* Legal */}
-      <div>
-        <h4 className="font-semibold mb-4 text-white">Legal</h4>
-        <ul className="space-y-2 text-gray-400">
-          <li><a href="#" className="hover:text-purple-400 transition">Privacy Policy</a></li>
-          <li><a href="#" className="hover:text-purple-400 transition">Terms of Service</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    {/* Trust Line */}
-    <div className="text-center mt-12 text-sm text-gray-500">
-      ⚡ Secure payments powered by Razorpay • No hidden charges
-    </div>
-
-    {/* Bottom */}
-    <div className="text-center mt-6 text-xs text-gray-600">
-      © {new Date().getFullYear()} Praxo AI Tools. All rights reserved.
-    </div>
-
-  </div>
-
-</footer>
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)} 
