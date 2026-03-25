@@ -11,6 +11,35 @@ export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
+  import { useEffect } from "react";
+
+useEffect(() => {
+  const fetchUserPlan = async () => {
+    if (!user?.email) return;
+
+    try {
+      const res = await fetch(
+        `https://osfsphdlpbijrlswfhfc.supabase.co/rest/v1/users1?email=eq.${user.email}`,
+        {
+          headers: {
+            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZnNwaGRscGJpanJsc3dmaGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzNDIsImV4cCI6MjA4OTY2NTM0Mn0.wP65QbY7SChWbAdEH01jhWjRQ_qQ3Mdg2j7CujtAbuk",
+            Authorization: `Bearer YOUR_SUPABASE_ANON_KEY`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (data?.[0]?.plan === "pro") {
+        useUsageStore.setState({ isPro: true });
+      }
+    } catch (err) {
+      console.error("Error fetching user plan:", err);
+    }
+  };
+
+  fetchUserPlan();
+}, [user]);
   const [user, setUser] = useState<any>(null);
   useEffect(() => {
   const getUser = async () => {
