@@ -291,7 +291,7 @@ export const Home: React.FC = () => {
         <p className="text-white text-lg">
           “My reels started getting 2x more engagement just by fixing my hooks. This tool is insane.”
         </p>
-        <p className="text-gray-500 mt-4 text-sm">— Content Creator</p>
+        <p className="text-gray-500 mt-4 text-sm">— Somesh (Content Creator)</p>
       </div>
 
       <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
@@ -299,7 +299,7 @@ export const Home: React.FC = () => {
         <p className="text-white text-lg">
           “I stopped overthinking content. Now I just generate, post, and grow. Saved me hours every day.”
         </p>
-        <p className="text-gray-500 mt-4 text-sm">— Freelancer</p>
+        <p className="text-gray-500 mt-4 text-sm">— Jesse Daniel (Freelancer)</p>
       </div>
 
       <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
@@ -307,7 +307,7 @@ export const Home: React.FC = () => {
         <p className="text-white text-lg">
           “The AI prompts alone are worth it. My content strategy became 10x better.”
         </p>
-        <p className="text-gray-500 mt-4 text-sm">— Digital Marketer</p>
+        <p className="text-gray-500 mt-4 text-sm">— Chetan (Digital Marketer)</p>
       </div>
 
     </div>
@@ -332,7 +332,7 @@ export const Home: React.FC = () => {
       <ul className="space-y-4 mb-8 flex-1">
         <li className="flex items-center text-gray-300">
           <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
-          3 credits per day (guest)
+          2 credits per day (guest)
         </li>
         <li className="flex items-center text-gray-300">
           <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
