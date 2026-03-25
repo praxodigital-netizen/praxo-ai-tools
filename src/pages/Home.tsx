@@ -476,17 +476,17 @@ useEffect(() => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
+          <div className=p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
 hover:scale-105 hover:border-purple-500/40 transition-all duration-300"">
             <h3 <h3 className="text-xl font-bold mb-2">🎬 Content Creators</h3>>
             <p className="text-sm text-gray-400">Create scroll-stopping hooks, captions, and ideas for any type of content across all platforms.</p>
           </div>
-          <div className="className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
+          <div className=p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
 hover:scale-105 hover:border-purple-500/40 transition-all duration-300"">
-            <<h3 className="text-xl font-bold mb-2">💼 Business Owners</h3></h3>
+            <<h3 className="text-xl font-bold mb-2">💼 Business Owners</h3>
             <p className="text-sm text-gray-400">Generate high-converting captions, ads, and content to promote your products or services.</p>
           </div>
-          <div className="className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
+          <div className=p-6 rounded-2xl bg-white/5 border border-white/10 text-center 
 hover:scale-105 hover:border-purple-500/40 transition-all duration-300"">
             <<h3 className="text-xl font-bold mb-2">🧑‍💻 Freelancers</h3>>
             <p className="text-sm text-gray-400">Save time and scale your work by generating content, ideas, and client deliverables instantly.</p>
