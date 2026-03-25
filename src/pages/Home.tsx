@@ -328,9 +328,12 @@ export const Home: React.FC = () => {
         </li>
       </ul>
 
-      <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition-colors mb-3">
-        Upgrade Now 🚀
-      </button>
+      <button
+  onClick={handleUpgrade}
+  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition"
+>
+  Upgrade to Pro 🚀
+</button>
 
       <div className="flex justify-center items-center text-xs text-gray-400">
         <span>Cancel anytime • No hidden charges</span>
