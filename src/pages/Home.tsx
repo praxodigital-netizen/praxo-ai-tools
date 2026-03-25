@@ -62,12 +62,13 @@ export const Home: React.FC = () => {
     alert("Payment failed");
   }
 };
-{showSuccess && (
-  <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50">
-    🎉 Payment successful! You are now Pro 🚀
-  </div>
-)}
   return (
+  <>
+    {showSuccess && (
+      <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50">
+        🎉 Payment successful! You are now Pro 🚀
+      </div>
+    )}
     <div className="flex flex-col items-center w-full overflow-x-hidden">
       {/* Hero Section */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 text-center relative">
