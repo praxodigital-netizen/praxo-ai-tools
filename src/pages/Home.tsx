@@ -12,6 +12,7 @@ export const Home: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
   const [user, setUser] = useState<any>(null);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
 useEffect(() => {
   const fetchUserPlan = async () => {
@@ -510,37 +511,68 @@ useEffect(() => {
 </section>
 
       {/* Frequently Asked Questions */}
-      <section id="faq" className="w-full bg-white/[0.02] border-t border-white/5 py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-400">Everything you need to know about Praxo AI.</p>
-          </div>
+<section id="faq" className="w-full bg-white/[0.02] border-t border-white/5 py-24">
+  <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div className="text-center mb-16">
+      <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+      <p className="text-gray-400">Everything you need to know about Praxo AI.</p>
+    </div>
 
-          <div className="space-y-4">
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h3 className="text-lg font-bold mb-2">Is Praxo AI free to use?</h3>
-              <p className="text-gray-400">Yes, you can use it for free with limited daily credits. Upgrade anytime for unlimited access.</p>
+    <div className="space-y-4">
+
+      {/* FAQ ITEM */}
+      {[
+        {
+          q: "Is Praxo AI free to use?",
+          a: "Yes, you can use it for free with limited daily credits. Upgrade anytime for unlimited access."
+        },
+        {
+          q: "Do I need to login?",
+          a: "You can try without login, but logging in gives you more credits and better access."
+        },
+        {
+          q: "What can I create with Praxo AI?",
+          a: "You can create hooks, captions, prompts, and content ideas for any platform."
+        },
+        {
+          q: "Does this work for all platforms?",
+          a: "Yes, Praxo AI works for Instagram, YouTube, Facebook, LinkedIn, and more."
+        },
+        {
+          q: "Why should I upgrade?",
+          a: "Upgrading gives you unlimited usage, faster results, and access to all tools."
+        }
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300"
+        >
+          
+          {/* QUESTION */}
+          <button
+            onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+            className="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition"
+          >
+            <span className="text-lg font-semibold">{item.q}</span>
+            <span className="text-purple-400 text-xl">
+              {openFAQ === index ? "−" : "+"}
+            </span>
+          </button>
+
+          {/* ANSWER */}
+          {openFAQ === index && (
+            <div className="px-6 pb-6 text-gray-400 text-sm">
+              {item.a}
             </div>
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h3 className="text-lg font-bold mb-2">Do I need to login?</h3>
-              <p className="text-gray-400">You can try without login, but logging in gives you more credits and better access.</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h3 className="text-lg font-bold mb-2">What can I create with Praxo AI?</h3>
-              <p className="text-gray-400">You can create hooks, captions, prompts, and content ideas for any platform.</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h3 className="text-lg font-bold mb-2">Does this work for all platforms?</h3>
-              <p className="text-gray-400">Yes, Praxo AI works for Instagram, YouTube, Facebook, LinkedIn, and more.</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h3 className="text-lg font-bold mb-2">Why should I upgrade?</h3>
-              <p className="text-gray-400">Upgrading gives you unlimited usage, faster results, and access to all tools.</p>
-            </div>
-          </div>
+          )}
+
         </div>
-      </section>
+      ))}
+
+    </div>
+  </div>
+</section>
 
       {/* Contact Section */}
       <section id="contact" className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
