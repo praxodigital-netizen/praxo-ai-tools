@@ -10,6 +10,53 @@ export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
+  const handleUpgrade = async () => {
+  try {
+    const res = await fetch(
+      "https://osfsphdlpbjirslwfhfc.supabase.co/functions/v1/create-razorpay-order",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_email: "test@user.com",
+        }),
+      }
+    );
+
+    const order = await res.json();
+
+    if (!order.id) {
+      alert("Error creating order");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_xxxxx", // ← YOUR KEY HERE
+      amount: order.amount,
+      currency: order.currency,
+      name: "Praxo AI Tools",
+      description: "Pro Plan",
+      order_id: order.id,
+
+      handler: function () {
+        alert("Payment successful 🎉");
+      },
+
+      theme: {
+        color: "#7c3aed",
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+
+  } catch (err) {
+    console.error(err);
+    alert("Payment failed");
+  }
+};
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden">
       {/* Hero Section */}
