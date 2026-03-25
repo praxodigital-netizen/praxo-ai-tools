@@ -40,8 +40,30 @@ export const Home: React.FC = () => {
       description: "Pro Plan",
       order_id: order.id,
 
-      handler: function () {
-  alert("🎉 Payment successful! You are now Pro 🚀");
+      handler: async function (response) {
+  alert("🎉 Payment successful! Verifying...");
+
+  try {
+    await fetch("https://osfsphdlpbijrlswfhfc.supabase.co/functions/v1/verify-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        razorpay_order_id: response.razorpay_order_id,
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_signature: response.razorpay_signature,
+        user_email: "test@user.com",
+      }),
+    });
+
+    alert("✅ You are now Pro 🚀");
+    window.location.reload();
+
+  } catch (err) {
+    console.error(err);
+    alert("Verification failed");
+  }
 },
 
       theme: {
