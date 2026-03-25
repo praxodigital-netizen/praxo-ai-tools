@@ -114,31 +114,47 @@ Create a 30-second Instagram reel script for a fitness coach targeting beginners
         </div>
       </section>
 
-      {/* What You Can Create Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">What You Can Create with Praxo AI Tools</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Our AI content generator helps you create high-quality content faster. Whether you need social media posts or business marketing materials, our free AI tools for content creation have you covered.
-          </p>
-        </div>
+      {/* What You Can Achieve Section */}
+<section className="py-20 border-t border-white/10">
+  <div className="max-w-5xl mx-auto px-4 text-center">
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {[
-            "Instagram captions",
-            "LinkedIn posts",
-            "YouTube scripts",
-            "Ad copy",
-            "Business content",
-            "Marketing ideas"
-          ].map((item, index) => (
-            <div key={index} className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 border border-white/10">
-              <CheckCircle2 className="w-5 h-5 text-purple-400 flex-shrink-0" />
-              <span className="font-medium">{item}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      What you can achieve with Praxo AI
+    </h2>
+
+    <p className="text-gray-400 text-lg mb-12">
+      Stop guessing what works. Start creating content that actually performs.
+    </p>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        🔥 Go viral with scroll-stopping hooks
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        📈 Write captions that increase engagement
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        🎯 Generate high-converting content ideas instantly
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        ⚡ Create ready-to-use prompts for any AI tool
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        🚀 Save hours of thinking and content planning
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
+        💡 Never run out of content ideas again
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* Tools Section */}
       <section id="tools" className="w-full bg-white/[0.02] border-y border-white/5 py-24">
