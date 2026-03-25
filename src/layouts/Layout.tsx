@@ -356,7 +356,7 @@ export const Layout: React.FC = () => {
               <span className="sm:hidden">{isProcessing ? '...' : 'Upgrade'}</span>
             </div>
             <div className="absolute -top-3 bg-black/80 backdrop-blur-sm text-xs font-bold text-purple-300 px-3 py-1 rounded-full border border-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-              🔥 Limited launch price ₹99
+              🔥 Limited launch price ₹29
             </div>
           </motion.button>
         )}
