@@ -11,6 +11,7 @@ export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
+  const [user, setUser] = useState<any>(null);
 
 useEffect(() => {
   const fetchUserPlan = async () => {
@@ -39,7 +40,6 @@ useEffect(() => {
 
   fetchUserPlan();
 }, [user]);
-  const [user, setUser] = useState<any>(null);
   useEffect(() => {
   const getUser = async () => {
     const supabase = createClient(
