@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
   const handleUpgrade = async () => {
   try {
     const res = await fetch(
-      "https://osfsphdlpbjirslwfhfc.supabase.co/functions/v1/create-razorpay-order",
+      "https://osfsphdlpbijrlswfhfc.supabase.co/functions/v1/create-razorpay-order",
       {
         method: "POST",
         headers: {
