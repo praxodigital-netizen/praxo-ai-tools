@@ -9,7 +9,6 @@ import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, 
 export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const { isPro } = useUsageStore();
   const handleUpgrade = async () => {
   try {
@@ -42,9 +41,8 @@ export const Home: React.FC = () => {
       order_id: order.id,
 
       handler: function () {
-  alert("🎉 Payment successful!\nYou are now a Pro user 🚀");
-}
-}
+        alert("Payment successful 🎉");
+      },
 
       theme: {
         color: "#7c3aed",
