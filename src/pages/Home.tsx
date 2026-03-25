@@ -392,17 +392,14 @@ export const Home: React.FC = () => {
   );
 };
 
-export const ToolCard = ({ to, icon, title, description, color }: any) =>
+export const ToolCard = ({ to, icon, title, description, color }: any) => (
   <Link to={to} className="group block">
-    <div className="h-full p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden">
-      <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-b ${color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      <div className="relative z-10">
-        <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-          {icon}
-        </div>
-        <h3 className="text-xl font-bold mb-3">{title}</h3>
-        <p className="text-gray-400 leading-relaxed">{description}</p>
+    <div className="h-full p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300">
+      <div className={`w-14 h-14 rounded-2xl ${color} flex items-center justify-center mb-6`}>
+        {icon}
       </div>
+      <h3 className="text-2xl font-bold mb-4">{title}</h3>
+      <p className="text-gray-400 leading-relaxed">{description}</p>
     </div>
   </Link>
 );
