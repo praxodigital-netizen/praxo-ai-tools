@@ -42,7 +42,7 @@ export const Home: React.FC = () => {
 
       handler: function () {
   alert("🎉 Payment successful! You are now Pro 🚀");
-}
+},
 
       theme: {
         color: "#7c3aed",
