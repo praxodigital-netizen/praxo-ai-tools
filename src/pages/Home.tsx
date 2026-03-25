@@ -258,38 +258,50 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Pro Plan */}
-          <div className="p-8 rounded-3xl bg-gradient-to-b from-purple-900/40 to-blue-900/20 border-2 border-purple-500/50 flex flex-col relative overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-            <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-blue-500 text-xs font-bold px-4 py-1.5 rounded-bl-xl">🔥 Most Popular</div>
-            <h3 className="text-2xl font-bold mb-2">Pro</h3>
-            <div className="flex items-baseline gap-2 mb-2">
-              <div className="text-4xl font-extrabold">₹99<span className="text-lg text-gray-400 font-normal">/mo</span></div>
-            </div>
-            <p className="text-purple-300 text-sm font-medium mb-6">🔥 Limited launch pricing</p>
-            <ul className="space-y-4 mb-8 flex-1">
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Unlimited credits</li>
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Access to all tools</li>
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Generate 5 results per request</li>
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Premium quality output</li>
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> Faster generation</li>
-              <li className="flex items-center text-white"><CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" /> No ads</li>
-            </ul>
-            <button 
-              onClick={() => {
-                if (isPro) return;
-                handlePayment(() => setIsLoginModalOpen(true));
-              }}
-              disabled={isProcessing || isPro}
-              className="w-full py-3 rounded-xl bg-white text-black hover:bg-gray-100 text-center font-semibold transition-colors shadow-lg mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isPro ? 'Pro Active' : (isProcessing ? 'Processing...' : 'Unlock Unlimited Credits 🚀')}
-            </button>
-            <div className="flex justify-center items-center space-x-4 text-xs text-gray-400">
-              <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> Instant results</span>
-              <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> Used by creators worldwide</span>
-            </div>
-          </div>
-        </div>
-      </section>
+<div className="relative border border-purple-500 rounded-2xl p-6 bg-black/60 shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+
+  {/* Badge */}
+  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
+    🔥 Most Popular
+  </div>
+
+  <h3 className="text-xl font-semibold text-white mb-2 text-center">
+    Pro Plan
+  </h3>
+
+  {/* Price */}
+  <div className="text-center mb-4">
+    <span className="line-through text-gray-500 text-lg">₹99</span>
+    <span className="text-4xl font-bold text-white ml-2">₹29</span>
+    <span className="text-gray-400 text-sm">/month</span>
+
+    <p className="text-green-400 text-sm mt-1">
+      🔥 Limited time launch offer
+    </p>
+
+    <p className="text-yellow-400 text-xs mt-1">
+      ⚡ Only for first 100 users
+    </p>
+  </div>
+
+  {/* Features */}
+  <ul className="space-y-3 text-gray-300 text-sm mb-6">
+    <li>✅ Unlimited generations</li>
+    <li>✅ Faster AI responses</li>
+    <li>✅ Access to all tools</li>
+    <li>✅ Premium output quality</li>
+  </ul>
+
+  {/* CTA */}
+  <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition">
+    Upgrade Now 🚀
+  </button>
+
+  {/* Trust line */}
+  <p className="text-center text-gray-500 text-xs mt-3">
+    Cancel anytime • No hidden charges
+  </p>
+</div>
 
       {/* Who is this for? */}
       <section id="features" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-white/10">
