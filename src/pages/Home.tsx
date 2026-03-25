@@ -389,7 +389,7 @@ export const Home: React.FC = () => {
   );
 };
 
-export const ToolCard = ({ to, icon, title, description, color }: { to: string, icon: React.ReactNode, title: string, description: string, color: string }) => (
+export const ToolCard = ({ to, icon, title, description, color }: any) =>
   <Link to={to} className="group block">
     <div className="h-full p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden">
       <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-b ${color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
