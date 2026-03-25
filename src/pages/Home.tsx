@@ -11,7 +11,6 @@ export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
-  import { useEffect } from "react";
 
 useEffect(() => {
   const fetchUserPlan = async () => {
