@@ -188,95 +188,48 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Marketing Section */}
-      <section className="w-full bg-white/[0.02] border-y border-white/5 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">AI Tools for Marketing & Social Media</h2>
-            <p className="text-gray-400">Boost your engagement and reach with AI-driven content strategies.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div className="relative">
-              <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">1</div>
-              <h3 className="text-xl font-semibold mb-2">Enter your idea</h3>
-              <p className="text-gray-400">Just type in your topic or keyword. Keep it simple.</p>
-              <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-white/20 to-transparent" />
-            </div>
-            <div className="relative">
-              <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">2</div>
-              <h3 className="text-xl font-semibold mb-2">Generate content</h3>
-              <p className="text-gray-400">Our AI analyzes trends to create high-converting copy.</p>
-              <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-white/20 to-transparent" />
-            </div>
-            <div>
-              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">3</div>
-              <h3 className="text-xl font-semibold mb-2">Copy and use</h3>
-              <p className="text-gray-400">Click to copy and paste directly to your social platforms.</p>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Testimonials Section */}
-      <section className="w-full bg-white/[0.02] border-y border-white/5 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">What creators are saying</h2>
-            <p className="text-gray-400">Join thousands of creators growing faster with Praxo AI.</p>
-          </div>
+<section className="py-20 border-t border-white/10">
+  <div className="max-w-6xl mx-auto px-4 text-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-purple-500/30 transition-colors">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
-              <div className="flex text-yellow-500 mb-4">
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-              </div>
-              <p className="text-gray-300 mb-6 flex-1 italic">"Saved me hours every day. My content engagement doubled."</p>
-              <div>
-                <p className="font-bold text-white">— Rohit</p>
-                <p className="text-sm text-gray-400">Instagram Creator</p>
-              </div>
-            </div>
-            
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-blue-500/30 transition-colors">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
-              <div className="flex text-yellow-500 mb-4">
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-              </div>
-              <p className="text-gray-300 mb-6 flex-1 italic">"The hooks are insanely good. My reels started performing better instantly."</p>
-              <div>
-                <p className="font-bold text-white">— Priya</p>
-                <p className="text-sm text-gray-400">Content Creator</p>
-              </div>
-            </div>
+    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      What creators are achieving
+    </h2>
 
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col relative overflow-hidden group hover:border-pink-500/30 transition-colors">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-50" />
-              <div className="flex text-yellow-500 mb-4">
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-                <Star className="w-5 h-5 fill-current" />
-              </div>
-              <p className="text-gray-300 mb-6 flex-1 italic">"Best tool for quick captions and ideas. Super easy to use."</p>
-              <div>
-                <p className="font-bold text-white">— Aman</p>
-                <p className="text-sm text-gray-400">Small Business Owner</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <p className="text-gray-400 text-lg mb-12">
+      Real results from people using Praxo AI Tools
+    </p>
 
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
+        <p className="text-yellow-400 mb-3">★★★★★</p>
+        <p className="text-white text-lg">
+          “My reels started getting 2x more engagement just by fixing my hooks. This tool is insane.”
+        </p>
+        <p className="text-gray-500 mt-4 text-sm">— Content Creator</p>
+      </div>
+
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
+        <p className="text-yellow-400 mb-3">★★★★★</p>
+        <p className="text-white text-lg">
+          “I stopped overthinking content. Now I just generate, post, and grow. Saved me hours every day.”
+        </p>
+        <p className="text-gray-500 mt-4 text-sm">— Freelancer</p>
+      </div>
+
+      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
+        <p className="text-yellow-400 mb-3">★★★★★</p>
+        <p className="text-white text-lg">
+          “The AI prompts alone are worth it. My content strategy became 10x better.”
+        </p>
+        <p className="text-gray-500 mt-4 text-sm">— Digital Marketer</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+      
       {/* Pricing */}
       <section id="pricing" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
