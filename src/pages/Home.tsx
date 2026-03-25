@@ -305,7 +305,6 @@ export const Home: React.FC = () => {
   </p>
 </div>
 </div>
-</div>
 </section>
 
       {/* Who is this for? */}
