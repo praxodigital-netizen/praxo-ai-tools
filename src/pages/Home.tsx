@@ -41,8 +41,8 @@ export const Home: React.FC = () => {
       order_id: order.id,
 
       handler: function () {
-        alert("Payment successful 🎉");
-      },
+  alert("🎉 Payment successful! You are now Pro 🚀");
+}
 
       theme: {
         color: "#7c3aed",
