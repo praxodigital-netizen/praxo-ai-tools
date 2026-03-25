@@ -4,12 +4,27 @@ import { useUsageStore } from '../store/usage';
 import { LoginModal } from '../components/LoginModal';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { createClient } from "@supabase/supabase-js";
 import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, Globe, Rocket } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isPro } = useUsageStore();
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+  const getUser = async () => {
+    const supabase = createClient(
+      "https://osfsphdlpbijrlswfhfc.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZnNwaGRscGJpanJsc3dmaGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzNDIsImV4cCI6MjA4OTY2NTM0Mn0.wP65QbY7SChWbAdEH01jhWjRQ_qQ3Mdg2j7CujtAbuk"
+    );
+
+    const { data } = await supabase.auth.getUser();
+    setUser(data.user);
+  };
+
+  getUser();
+}, []);
   const handleUpgrade = async () => {
   try {
     const res = await fetch(
@@ -20,8 +35,8 @@ export const Home: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_email: "test@user.com",
-        }),
+  user_email: user?.email,
+}),
       }
     );
 
