@@ -84,7 +84,7 @@ export const useRazorpay = () => {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  razorpay_order_id: orderData.id,
+                  razorpay_order_id: response.razorpay_order_id,
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
                   user_email: userEmail,
