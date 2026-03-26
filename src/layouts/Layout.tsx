@@ -408,10 +408,6 @@ export const Layout: React.FC = () => {
                 <li><Link to="/terms" onClick={() => window.scrollTo(0, 0)} className="text-gray-400 hover:text-white transition-colors text-sm">Terms & Conditions</Link></li>
                 <li><Link to="/pricing-policy" onClick={() => window.scrollTo(0, 0)} className="text-gray-400 hover:text-white transition-colors text-sm">Pricing Policy</Link></li>
                 <li className="pt-2">
-                  <a href="mailto:praxodigital@gmail.com" className="text-gray-400 hover:text-white transition-colors text-sm flex items-center space-x-2">
-                    <MessageSquare className="w-4 h-4" />
-                    <span>praxodigital@gmail.com</span>
-                  </a>
                 </li>
               </ul>
             </div>
