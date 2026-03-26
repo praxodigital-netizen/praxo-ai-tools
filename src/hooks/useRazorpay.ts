@@ -11,7 +11,7 @@ export const useRazorpay = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (onLoginRequired: () => void) => {
-    
+
     // ✅ HARD VALIDATION
     if (!userEmail || !userId || userEmail === 'test@example.com') {
       console.warn("❌ Invalid user:", { userEmail, userId });
@@ -21,8 +21,9 @@ export const useRazorpay = () => {
 
     const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (!razorpayKeyId || !supabaseUrl) {
+    if (!razorpayKeyId || !supabaseUrl || !supabaseAnonKey) {
       alert('Missing config');
       return;
     }
@@ -83,9 +84,11 @@ export const useRazorpay = () => {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
+                  'apikey': supabaseAnonKey,
+                  'Authorization': `Bearer ${supabaseAnonKey}`, // ✅ CRITICAL FIX
                 },
                 body: JSON.stringify({
-                  razorpay_order_id: orderData.id, // ✅ FINAL FIX (IMPORTANT)
+                  razorpay_order_id: orderData.id,
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
                   user_email: userEmail,
