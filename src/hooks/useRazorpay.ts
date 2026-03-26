@@ -6,14 +6,15 @@ import { useUsageStore } from '../store/usage';
 export const useRazorpay = () => {
   const store = useUsageStore();
   const userEmail = store.userEmail;
+  const userId = store.userId; // ✅ IMPORTANT FIX
 
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (onLoginRequired: () => void) => {
 
     // ✅ EXTRA SAFETY CHECK
-    if (!userEmail || userEmail === 'test@example.com') {
-      console.warn("❌ Invalid email:", userEmail);
+    if (!userEmail || !userId || userEmail === 'test@example.com') {
+      console.warn("❌ Invalid user:", { userEmail, userId });
       onLoginRequired();
       return;
     }
@@ -23,7 +24,7 @@ export const useRazorpay = () => {
 
     console.log("🔥 USING SUPABASE DIRECT CALL");
     console.log("🔥 FRONTEND EMAIL:", userEmail);
-    console.log("Supabase URL:", supabaseUrl);
+    console.log("🔥 FRONTEND USER ID:", userId);
 
     if (!razorpayKeyId || !supabaseUrl) {
       alert('Missing config');
@@ -46,7 +47,7 @@ export const useRazorpay = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            user_email: userEmail, // ✅ backend controls price now
+            user_email: userEmail,
           }),
         }
       );
@@ -67,12 +68,11 @@ export const useRazorpay = () => {
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
 
-        // ✅ FIXED SUCCESS HANDLER
+        // ✅ FINAL SUCCESS HANDLER (FIXED)
         handler: async function (response: any) {
           console.log("🔥 PAYMENT SUCCESS:", response);
 
           try {
-            // ✅ Verify payment
             await fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
               method: "POST",
               headers: {
@@ -83,18 +83,19 @@ export const useRazorpay = () => {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 user_email: userEmail,
+                user_id: userId, // ✅ CRITICAL FIX
               }),
             });
 
-            // ✅ FORCE SYNC FROM DB (IMPORTANT)
-            const store = useUsageStore.getState();
-            await store.syncWithDb();
+            // ✅ FORCE FRESH SYNC FROM DB
+            const freshStore = useUsageStore.getState();
+            await freshStore.syncWithDb();
 
-            // ✅ SUCCESS POPUP
+            // ✅ SUCCESS UI
             alert("🎉 Payment successful!\nYou are now a Pro user 🚀");
 
           } catch (err) {
-            console.error("Verification failed", err);
+            console.error("❌ Verification failed", err);
             alert("Payment verification failed");
           }
 
