@@ -65,7 +65,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, typ
                 ) : (
                   <>
                     Upgrade to Pro for unlimited access<br/>
-                    <span className="text-purple-400 font-semibold mt-2 block">Only ₹99/month. Cancel anytime.</span>
+                    <span className="text-purple-400 font-semibold mt-2 block">Only ₹29/month. Cancel anytime.</span>
                   </>
                 )}
               </p>
