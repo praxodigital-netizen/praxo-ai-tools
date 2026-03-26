@@ -1,128 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRazorpay } from '../hooks/useRazorpay';
 import { useUsageStore } from '../store/usage';
 import { LoginModal } from '../components/LoginModal';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { createClient } from "@supabase/supabase-js";
 import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, Globe, Rocket } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const { isPro } = useUsageStore();
-  const [user, setUser] = useState<any>(null);
+  const { is } = useUsageStore();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-useEffect(() => {
-  const fetchUserPlan = async () => {
-    if (!user?.email) return;
-
-    try {
-      const res = await fetch(
-        `https://osfsphdlpbijrlswfhfc.supabase.co/rest/v1/users1?email=eq.${user.email}`,
-        {
-          headers: {
-            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZnNwaGRscGJpanJsc3dmaGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzNDIsImV4cCI6MjA4OTY2NTM0Mn0.wP65QbY7SChWbAdEH01jhWjRQ_qQ3Mdg2j7CujtAbuk",
-            Authorization: `Bearer YOUR_SUPABASE_ANON_KEY`,
-          },
-        }
-      );
-
-      const data = await res.json();
-
-      if (data?.[0]?.plan === "pro") {
-        useUsageStore.setState({ isPro: true });
-      }
-    } catch (err) {
-      console.error("Error fetching user plan:", err);
-    }
-  };
-
-  fetchUserPlan();
-}, [user]);
-  useEffect(() => {
-  const getUser = async () => {
-    const supabase = createClient(
-      "https://osfsphdlpbijrlswfhfc.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZnNwaGRscGJpanJsc3dmaGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzNDIsImV4cCI6MjA4OTY2NTM0Mn0.wP65QbY7SChWbAdEH01jhWjRQ_qQ3Mdg2j7CujtAbuk"
-    );
-
-    const { data } = await supabase.auth.getUser();
-    setUser(data.user);
-  };
-
-  getUser();
-}, []);
-  const handleUpgrade = async () => {
-  try {
-    const res = await fetch(
-      "https://osfsphdlpbijrlswfhfc.supabase.co/functions/v1/create-razorpay-order",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-  user_email: user?.email,
-}),
-      }
-    );
-
-    const order = await res.json();
-
-    if (!order.id) {
-      alert("Error creating order");
-      return;
-    }
-
-    const options = {
-      key: "rzp_test_xxxxx", // ← YOUR KEY HERE
-      amount: order.amount,
-      currency: order.currency,
-      name: "Praxo AI Tools",
-      description: "Pro Plan",
-      order_id: order.id,
-
-      handler: async function (response) {
-  alert("🎉 Payment successful! Verifying...");
-
-  try {
-    await fetch("https://osfsphdlpbijrlswfhfc.supabase.co/functions/v1/verify-payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        razorpay_order_id: response.razorpay_order_id,
-        razorpay_payment_id: response.razorpay_payment_id,
-        razorpay_signature: response.razorpay_signature,
-        user_email: "test@user.com",
-      }),
-    });
-
-    alert("✅ You are now Pro 🚀");
-    window.location.reload();
-
-  } catch (err) {
-    console.error(err);
-    alert("Verification failed");
-  }
-},
-
-      theme: {
-        color: "#7c3aed",
-      },
-    };
-
-    const rzp = new (window as any).Razorpay(options);
-    rzp.open();
-
-  } catch (err) {
-    console.error(err);
-    alert("Payment failed");
-  }
-};
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden">
       {/* Hero Section */}
