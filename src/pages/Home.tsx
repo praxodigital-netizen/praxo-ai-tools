@@ -462,10 +462,12 @@ useEffect(() => {
     Upgrade to Pro 🚀
   </button>
 )}
-
-      <div className="flex justify-center items-center text-xs text-gray-400">
-        <span>Cancel anytime • No hidden charges</span>
-      </div>
+      <div className="mt-4 text-center">
+  <p className="text-sm text-gray-400">🔒 Secure payments via Razorpay</p>
+  <p className="text-xs text-gray-500 mt-1">
+    256-bit encryption • No hidden charges • Cancel anytime
+  </p>
+</div>
     </div>
   </div>
 </section>
