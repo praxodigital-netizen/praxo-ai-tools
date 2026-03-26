@@ -6,13 +6,11 @@ import { useUsageStore } from '../store/usage';
 export const useRazorpay = () => {
   const store = useUsageStore();
   const userEmail = store.userEmail;
-  const userId = store.userId; // ✅ IMPORTANT FIX
+  const userId = store.userId;
 
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (onLoginRequired: () => void) => {
-
-    // ✅ EXTRA SAFETY CHECK
     if (!userEmail || !userId || userEmail === 'test@example.com') {
       console.warn("❌ Invalid user:", { userEmail, userId });
       onLoginRequired();
@@ -21,10 +19,6 @@ export const useRazorpay = () => {
 
     const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-
-    console.log("🔥 USING SUPABASE DIRECT CALL");
-    console.log("🔥 FRONTEND EMAIL:", userEmail);
-    console.log("🔥 FRONTEND USER ID:", userId);
 
     if (!razorpayKeyId || !supabaseUrl) {
       alert('Missing config');
@@ -39,7 +33,7 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
-      const response = await fetch(
+      const orderRes = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
           method: 'POST',
@@ -52,54 +46,55 @@ export const useRazorpay = () => {
         }
       );
 
-      const data = await response.json();
+      const orderData = await orderRes.json();
 
-      console.log("🔥 SUPABASE RESPONSE:", data);
-
-      if (!response.ok || !data?.id) {
-        throw new Error(data?.error || "Order creation failed");
+      if (!orderRes.ok || !orderData?.id) {
+        throw new Error(orderData?.error || 'Order creation failed');
       }
 
       const rzp = new window.Razorpay({
         key: razorpayKeyId,
-        order_id: data.id,
-        amount: data.amount,
-        currency: data.currency,
+        order_id: orderData.id,
+        amount: orderData.amount,
+        currency: orderData.currency,
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
 
-        // ✅ FINAL SUCCESS HANDLER (FIXED)
         handler: async function (response: any) {
-          console.log("🔥 PAYMENT SUCCESS:", response);
-
           try {
-            await fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_order_id: data.id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                user_email: userEmail,
-                user_id: userId, // ✅ CRITICAL FIX
-              }),
-            });
+            const verifyRes = await fetch(
+              `${supabaseUrl}/functions/v1/verify-payment`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  razorpay_order_id: orderData.id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  user_email: userEmail,
+                  user_id: userId,
+                }),
+              }
+            );
 
-            // ✅ FORCE FRESH SYNC FROM DB
+            const verifyData = await verifyRes.json();
+
+            if (!verifyRes.ok || !verifyData?.success) {
+              throw new Error(verifyData?.error || 'Payment verification failed');
+            }
+
             const freshStore = useUsageStore.getState();
             await freshStore.syncWithDb();
 
-            // ✅ SUCCESS UI
             alert("🎉 Payment successful!\nYou are now a Pro user 🚀");
-
-          } catch (err) {
+          } catch (err: any) {
             console.error("❌ Verification failed", err);
-            alert("Payment verification failed");
+            alert(`Payment verification failed: ${err.message}`);
+          } finally {
+            setIsProcessing(false);
           }
-
-          setIsProcessing(false);
         },
 
         prefill: {
@@ -112,14 +107,12 @@ export const useRazorpay = () => {
 
         modal: {
           ondismiss: function () {
-            console.log("⚠️ Payment popup closed");
             setIsProcessing(false);
           },
         },
       });
 
       rzp.open();
-
     } catch (error: any) {
       console.error("❌ PAYMENT ERROR:", error);
       alert("Payment failed: " + error.message);
