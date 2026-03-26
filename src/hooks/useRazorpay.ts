@@ -72,6 +72,7 @@ export const useRazorpay = () => {
             console.log("🔥 VERIFY PAYLOAD:", {
               order_id: orderData.id,
               payment_id: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
               user_email: userEmail,
               user_id: currentStore.userId,
             });
@@ -84,11 +85,11 @@ export const useRazorpay = () => {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_order_id: orderData.id, // ✅ FINAL FIX (IMPORTANT)
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
                   user_email: userEmail,
-                  user_id: currentStore.userId, // ✅ ALWAYS FRESH
+                  user_id: currentStore.userId,
                 }),
               }
             );
