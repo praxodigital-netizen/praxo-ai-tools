@@ -416,6 +416,10 @@ export const Layout: React.FC = () => {
               </ul>
             </div>
           </div>
+          <div className="mt-10 pt-6 border-t border-white/10 text-center">
+  <p className="text-sm text-gray-400">🔒 Secure Payments via Razorpay</p>
+  <p className="text-xs text-gray-500 mt-1">256-bit encryption • No hidden charges • Cancel anytime</p>
+</div>
           
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between">
             <p className="text-gray-500 text-sm">
