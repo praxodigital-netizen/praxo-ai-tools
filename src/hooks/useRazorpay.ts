@@ -60,8 +60,6 @@ export const useRazorpay = () => {
       const rzp = new window.Razorpay({
         key: razorpayKeyId,
         order_id: orderData.id,
-        amount: orderData.amount,
-        currency: orderData.currency,
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
 
