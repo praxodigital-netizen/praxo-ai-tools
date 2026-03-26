@@ -9,6 +9,7 @@ import { Zap, MessageSquare, PenTool, ArrowRight, CheckCircle2, Sparkles, Star, 
 export const Home: React.FC = () => {
   const { handlePayment, isProcessing } = useRazorpay();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isPro } = useUsageStore();
   const { is } = useUsageStore();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
