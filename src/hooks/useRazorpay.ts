@@ -1,4 +1,4 @@
-console.log("🔥 FINAL RAZORPAY CLEAN BUILD");
+console.log("🔥 FINAL RAZORPAY STABLE BUILD");
 
 import { useState } from 'react';
 import { useUsageStore } from '../store/usage';
@@ -11,6 +11,8 @@ export const useRazorpay = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (onLoginRequired: () => void) => {
+    
+    // ✅ HARD VALIDATION
     if (!userEmail || !userId || userEmail === 'test@example.com') {
       console.warn("❌ Invalid user:", { userEmail, userId });
       onLoginRequired();
@@ -33,6 +35,8 @@ export const useRazorpay = () => {
     setIsProcessing(true);
 
     try {
+      console.log("🔥 Creating order for:", userEmail);
+
       const orderRes = await fetch(
         `${supabaseUrl}/functions/v1/create-razorpay-order`,
         {
@@ -47,6 +51,7 @@ export const useRazorpay = () => {
       );
 
       const orderData = await orderRes.json();
+      console.log("🔥 ORDER RESPONSE:", orderData);
 
       if (!orderRes.ok || !orderData?.id) {
         throw new Error(orderData?.error || 'Order creation failed');
@@ -61,7 +66,18 @@ export const useRazorpay = () => {
         description: 'Upgrade to Pro',
 
         handler: async function (response: any) {
+          console.log("🔥 PAYMENT SUCCESS:", response);
+
           try {
+            const currentStore = useUsageStore.getState();
+
+            console.log("🔥 VERIFY PAYLOAD:", {
+              order_id: orderData.id,
+              payment_id: response.razorpay_payment_id,
+              user_email: userEmail,
+              user_id: currentStore.userId,
+            });
+
             const verifyRes = await fetch(
               `${supabaseUrl}/functions/v1/verify-payment`,
               {
@@ -74,23 +90,25 @@ export const useRazorpay = () => {
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
                   user_email: userEmail,
-                  user_id: userId,
+                  user_id: currentStore.userId, // ✅ ALWAYS FRESH
                 }),
               }
             );
 
             const verifyData = await verifyRes.json();
+            console.log("🔥 VERIFY RESPONSE:", verifyData);
 
             if (!verifyRes.ok || !verifyData?.success) {
               throw new Error(verifyData?.error || 'Payment verification failed');
             }
 
-            const freshStore = useUsageStore.getState();
-            await freshStore.syncWithDb();
+            // ✅ FORCE DB SYNC
+            await currentStore.syncWithDb();
 
             alert("🎉 Payment successful!\nYou are now a Pro user 🚀");
+
           } catch (err: any) {
-            console.error("❌ Verification failed", err);
+            console.error("❌ Verification failed:", err);
             alert(`Payment verification failed: ${err.message}`);
           } finally {
             setIsProcessing(false);
@@ -107,12 +125,14 @@ export const useRazorpay = () => {
 
         modal: {
           ondismiss: function () {
+            console.log("⚠️ Razorpay closed");
             setIsProcessing(false);
           },
         },
       });
 
       rzp.open();
+
     } catch (error: any) {
       console.error("❌ PAYMENT ERROR:", error);
       alert("Payment failed: " + error.message);
