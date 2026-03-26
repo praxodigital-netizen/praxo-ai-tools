@@ -6,7 +6,6 @@ import { useUsageStore } from '../store/usage';
 export const useRazorpay = () => {
   const store = useUsageStore();
   const userEmail = store.userEmail;
-  const upgradeToPro = store.upgradeToPro;
 
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -47,9 +46,7 @@ export const useRazorpay = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            amount: 9900,
-            currency: 'INR',
-            user_email: userEmail, // ✅ FINAL FIX
+            user_email: userEmail, // ✅ backend controls price now
           }),
         }
       );
@@ -70,32 +67,39 @@ export const useRazorpay = () => {
         name: 'Praxo AI',
         description: 'Upgrade to Pro',
 
+        // ✅ FIXED SUCCESS HANDLER
         handler: async function (response: any) {
-  console.log("🔥 PAYMENT SUCCESS:", response);
+          console.log("🔥 PAYMENT SUCCESS:", response);
 
-  try {
-    await fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        razorpay_order_id: data.id,
-        razorpay_payment_id: response.razorpay_payment_id,
-        razorpay_signature: response.razorpay_signature,
-        user_email: userEmail,
-      }),
-    });
+          try {
+            // ✅ Verify payment
+            await fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: data.id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                user_email: userEmail,
+              }),
+            });
 
-    await upgradeToPro();
-    alert("Payment successful 🚀");
-  } catch (err) {
-    console.error("Verification failed", err);
-    alert("Payment verification failed");
-  }
+            // ✅ FORCE SYNC FROM DB (IMPORTANT)
+            const store = useUsageStore.getState();
+            await store.syncWithDb();
 
-  setIsProcessing(false);
-},
+            // ✅ SUCCESS POPUP
+            alert("🎉 Payment successful!\nYou are now a Pro user 🚀");
+
+          } catch (err) {
+            console.error("Verification failed", err);
+            alert("Payment verification failed");
+          }
+
+          setIsProcessing(false);
+        },
 
         prefill: {
           email: userEmail,
