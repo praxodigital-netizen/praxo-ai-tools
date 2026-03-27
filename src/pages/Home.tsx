@@ -340,13 +340,7 @@ export const Home: React.FC = () => {
   </button>
 ) : (
   <button
-    onClick={() => {
-  if (!user) {
-    setIsLoginModalOpen(true);
-    return;
-  }
-  handlePayment();
-}}
+    onClick={() => handlePayment(() => setIsLoginModalOpen(true))}
     className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:opacity-90 transition"
   >
     Upgrade to Pro 🚀
