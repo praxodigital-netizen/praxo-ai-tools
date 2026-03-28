@@ -200,104 +200,106 @@ export const Home: React.FC = () => {
       What creators are achieving
     </h2>
 
-    {/* ✅ FIXED MOBILE TEXT CUT ISSUE */}
-    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed break-words">
+    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
       Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
     <div className="relative overflow-hidden">
 
-      {/* Edge blur (ONLY for slider) */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-black to-transparent z-10" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-black to-transparent z-10" />
+      {/* Edge blur */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-black to-transparent z-10" />
 
-      <div className="flex gap-5 sm:gap-6 animate-scroll w-max hover:[animation-play-state:paused]">
+      <div className="flex gap-6 animate-scroll w-max">
 
         {[
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels started improving once I focused on hooks. I was overthinking earlier, but now I just generate and post.",
+            text: "My reels improved after fixing hooks. I stopped overthinking content.",
             img: "https://i.pravatar.cc/150?img=11",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions and ideas come much faster now. It actually saves me time every single day.",
+            text: "Captions come faster now. Saves me time daily.",
             img: "https://i.pravatar.cc/150?img=32",
           },
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
-            text: "Whenever I get stuck with content ideas for my business, this tool gives me direction instantly.",
+            text: "Great when I need quick content ideas for my business posts.",
             img: "https://i.pravatar.cc/150?img=12",
           },
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
-            text: "The prompt tool helps convert rough ideas into something I can directly use. That’s the best part.",
+            text: "Helps convert rough ideas into usable content easily.",
             img: "https://i.pravatar.cc/150?img=47",
           },
           {
             name: "Pratik Deshmukh",
             role: "Freelancer",
             rating: "★★★★★",
-            text: "Posting content feels easier now. I don’t overthink every line anymore, which was my biggest issue earlier.",
+            text: "Posting feels easier now. No more overthinking.",
             img: "https://i.pravatar.cc/150?img=15",
           },
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
-            text: "Good for daily posting consistency. Clean interface and quick results.",
+            text: "Good for daily consistency. Simple and effective tool.",
             img: "https://i.pravatar.cc/150?img=45",
           },
           {
             name: "Daniel Brooks",
             role: "Freelancer",
             rating: "★★★★½",
-            text: "Simple, clean and actually useful. I mostly use it for improving prompts.",
+            text: "Clean prompts and actually useful suggestions.",
             img: "https://i.pravatar.cc/150?img=52",
           },
           {
             name: "Sophie Lane",
             role: "Digital Creator",
             rating: "★★★★★",
-            text: "Helps me generate better captions quickly. Smooth and easy to use.",
+            text: "Helps me generate better captions quickly.",
             img: "https://i.pravatar.cc/150?img=65",
           },
 
-          // duplicate for seamless loop
+          // duplicate for infinite loop
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels started improving once I focused on hooks. I was overthinking earlier, but now I just generate and post.",
+            text: "My reels improved after fixing hooks. I stopped overthinking content.",
             img: "https://i.pravatar.cc/150?img=11",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions and ideas come much faster now. It actually saves me time every single day.",
+            text: "Captions come faster now. Saves me time daily.",
             img: "https://i.pravatar.cc/150?img=32",
           },
         ].map((item, i) => (
           <div
             key={i}
-            className="min-w-[240px] sm:min-w-[260px] md:min-w-[300px]
-            rounded-xl border border-white/10
-            bg-gradient-to-br from-white/10 via-white/5 to-transparent
-            p-4 sm:p-5 text-left
-            backdrop-blur-xl
-            shadow-lg shadow-black/30
-            hover:shadow-purple-500/30
-            hover:-translate-y-1
-            transition-all duration-300"
+            className="
+              w-[260px] sm:w-[280px] md:w-[300px]  /* ✅ FIXED WIDTH */
+              flex-shrink-0                     /* ❗ IMPORTANT */
+              rounded-xl border border-white/10
+              bg-gradient-to-br from-white/10 via-white/5 to-transparent
+              p-5 text-left
+              backdrop-blur-xl
+              shadow-lg shadow-black/30
+              hover:shadow-purple-500/30
+              hover:-translate-y-1
+              transition-all duration-300
+            "
           >
             <div className="flex items-center mb-3">
               <img
@@ -305,7 +307,7 @@ export const Home: React.FC = () => {
                 alt={item.name}
                 className="w-10 h-10 rounded-full mr-3 object-cover"
                 onError={(e) => {
-                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=1f2937&color=ffffff`;
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}`;
                 }}
               />
               <div>
@@ -316,7 +318,8 @@ export const Home: React.FC = () => {
 
             <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
 
-            <p className="text-gray-300 text-sm leading-relaxed">
+            {/* ✅ TEXT WRAPS INSIDE FIXED BOX */}
+            <p className="text-gray-300 text-sm leading-relaxed line-clamp-3">
               “{item.text}”
             </p>
           </div>
@@ -326,7 +329,7 @@ export const Home: React.FC = () => {
     </div>
   </div>
 
-  {/* ✅ SLOWED DOWN SCROLL */}
+  {/* Smooth animation */}
   <style>
     {`
       @keyframes scroll {
@@ -335,12 +338,12 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 28s linear infinite;
+        animation: scroll 35s linear infinite;
       }
 
       @media (max-width: 640px) {
         .animate-scroll {
-          animation: scroll 24s linear infinite;
+          animation: scroll 30s linear infinite;
         }
       }
     `}
