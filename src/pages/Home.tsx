@@ -196,111 +196,95 @@ export const Home: React.FC = () => {
   <div className="max-w-7xl mx-auto px-4 text-center">
 
     {/* Heading */}
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
       What creators are achieving
     </h2>
 
-    {/* FIXED MOBILE TEXT ISSUE */}
-    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed px-2">
+    {/* ✅ FIXED MOBILE TEXT CUT ISSUE */}
+    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed break-words">
       Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
-    {/* SCROLL CONTAINER */}
     <div className="relative overflow-hidden">
 
-      {/* Edge blur (ONLY on slider, not text) */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-20 bg-gradient-to-r from-black to-transparent z-10" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-20 bg-gradient-to-l from-black to-transparent z-10" />
+      {/* Edge blur (ONLY for slider) */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-black to-transparent z-10" />
 
       <div className="flex gap-5 sm:gap-6 animate-scroll w-max hover:[animation-play-state:paused]">
 
         {[
-          // ✅ INDIAN MALE
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels started improving once I focused on hooks. This really helped.",
-            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
+            text: "My reels started improving once I focused on hooks. I was overthinking earlier, but now I just generate and post.",
+            img: "https://i.pravatar.cc/150?img=11",
           },
-
-          // ✅ INDIAN FEMALE
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions and ideas come much faster now. Saves me time daily.",
-            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
+            text: "Captions and ideas come much faster now. It actually saves me time every single day.",
+            img: "https://i.pravatar.cc/150?img=32",
           },
-
-          // ✅ INDIAN MALE
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
-            text: "Useful when I need quick content ideas for my business posts.",
-            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
+            text: "Whenever I get stuck with content ideas for my business, this tool gives me direction instantly.",
+            img: "https://i.pravatar.cc/150?img=12",
           },
-
-          // ✅ INDIAN FEMALE
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
-            text: "The prompt tool helps convert rough ideas into usable content.",
-            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
+            text: "The prompt tool helps convert rough ideas into something I can directly use. That’s the best part.",
+            img: "https://i.pravatar.cc/150?img=47",
           },
-
-          // ✅ INDIAN MALE
           {
             name: "Pratik Deshmukh",
             role: "Freelancer",
             rating: "★★★★★",
-            text: "Posting feels easier now. I don’t overthink content anymore.",
-            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
+            text: "Posting content feels easier now. I don’t overthink every line anymore, which was my biggest issue earlier.",
+            img: "https://i.pravatar.cc/150?img=15",
           },
-
-          // ✅ INDIAN FEMALE
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
-            text: "Good for daily posting consistency. Simple and effective.",
-            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
+            text: "Good for daily posting consistency. Clean interface and quick results.",
+            img: "https://i.pravatar.cc/150?img=45",
           },
-
-          // ✅ FOREIGN MALE
           {
             name: "Daniel Brooks",
             role: "Freelancer",
             rating: "★★★★½",
-            text: "The prompts are clean and actually usable. Nice tool.",
-            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
+            text: "Simple, clean and actually useful. I mostly use it for improving prompts.",
+            img: "https://i.pravatar.cc/150?img=52",
           },
-
-          // ✅ FOREIGN FEMALE
           {
             name: "Sophie Lane",
             role: "Digital Creator",
             rating: "★★★★★",
-            text: "Helps me generate better captions quickly. Smooth experience.",
-            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces",
+            text: "Helps me generate better captions quickly. Smooth and easy to use.",
+            img: "https://i.pravatar.cc/150?img=65",
           },
 
-          // 🔁 DUPLICATE FOR LOOP (IMPORTANT)
+          // duplicate for seamless loop
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels started improving once I focused on hooks. This really helped.",
-            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
+            text: "My reels started improving once I focused on hooks. I was overthinking earlier, but now I just generate and post.",
+            img: "https://i.pravatar.cc/150?img=11",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions and ideas come much faster now. Saves me time daily.",
-            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
+            text: "Captions and ideas come much faster now. It actually saves me time every single day.",
+            img: "https://i.pravatar.cc/150?img=32",
           },
         ].map((item, i) => (
           <div
@@ -342,7 +326,7 @@ export const Home: React.FC = () => {
     </div>
   </div>
 
-  {/* SCROLL ANIMATION */}
+  {/* ✅ SLOWED DOWN SCROLL */}
   <style>
     {`
       @keyframes scroll {
@@ -351,12 +335,12 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 18s linear infinite;
+        animation: scroll 28s linear infinite;
       }
 
       @media (max-width: 640px) {
         .animate-scroll {
-          animation: scroll 14s linear infinite;
+          animation: scroll 24s linear infinite;
         }
       }
     `}
