@@ -192,45 +192,173 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-<section className="py-20 border-t border-white/10">
-  <div className="max-w-6xl mx-auto px-4 text-center">
+<section className="py-20 border-t border-white/10 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 text-center">
 
     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
       What creators are achieving
     </h2>
 
     <p className="text-gray-400 text-lg mb-12">
-      Real results from people using Praxo AI Tools
+      Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {/* Row 1 */}
+    <div className="relative overflow-hidden mb-6">
+      <div className="flex gap-6 animate-scroll-left hover:[animation-play-state:paused]">
 
-      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
-        <p className="text-yellow-400 mb-3">★★★★★</p>
-        <p className="text-white text-lg">
-          “My reels started getting 2x more engagement just by fixing my hooks. This tool is insane.”
-        </p>
-        <p className="text-gray-500 mt-4 text-sm">— Somesh (Content Creator)</p>
+        {[
+          {
+            name: "Aman Verma",
+            role: "Content Creator",
+            rating: "★★★★☆",
+            text: "My reels started getting better once I stopped overthinking the first line.",
+            img: "https://i.pravatar.cc/100?img=1",
+          },
+          {
+            name: "Riya Kapoor",
+            role: "Freelance Marketer",
+            rating: "★★★★★",
+            text: "Captions and prompt ideas come much faster now. Saves me a lot of time.",
+            img: "https://i.pravatar.cc/100?img=5",
+          },
+          {
+            name: "Sarthak Jain",
+            role: "Business Owner",
+            rating: "★★★★☆",
+            text: "Helpful when I need post ideas quickly for my business page.",
+            img: "https://i.pravatar.cc/100?img=3",
+          },
+          {
+            name: "Neha Arora",
+            role: "UGC Creator",
+            rating: "★★★★½",
+            text: "The prompt tool is surprisingly useful. It cleans up my raw ideas.",
+            img: "https://i.pravatar.cc/100?img=8",
+          },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="min-w-[300px] bg-black/50 border border-white/10 rounded-xl p-5 text-left backdrop-blur-md"
+          >
+            <div className="flex items-center mb-3">
+              <img
+                src={item.img}
+                alt={item.name}
+                className="w-10 h-10 rounded-full mr-3"
+              />
+              <div>
+                <p className="text-white text-sm font-semibold">{item.name}</p>
+                <p className="text-gray-500 text-xs">{item.role}</p>
+              </div>
+            </div>
+
+            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
+
+            <p className="text-gray-300 text-sm leading-relaxed">
+              “{item.text}”
+            </p>
+          </div>
+        ))}
+
+        {/* duplicate for infinite loop */}
+        {[...Array(4)].map((_, i) => (
+          <div key={"dup1-" + i} className="w-[300px]" />
+        ))}
+
       </div>
-
-      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
-        <p className="text-yellow-400 mb-3">★★★★★</p>
-        <p className="text-white text-lg">
-          “I stopped overthinking content. Now I just generate, post, and grow. Saved me hours every day.”
-        </p>
-        <p className="text-gray-500 mt-4 text-sm">— Jesse Daniel (Freelancer)</p>
-      </div>
-
-      <div className="bg-black/50 border border-white/10 rounded-xl p-6 text-left">
-        <p className="text-yellow-400 mb-3">★★★★★</p>
-        <p className="text-white text-lg">
-          “The AI prompts alone are worth it. My content strategy became 10x better.”
-        </p>
-        <p className="text-gray-500 mt-4 text-sm">— Chetan (Digital Marketer)</p>
-      </div>
-
     </div>
+
+    {/* Row 2 */}
+    <div className="relative overflow-hidden">
+      <div className="flex gap-6 animate-scroll-right hover:[animation-play-state:paused]">
+
+        {[
+          {
+            name: "Pratik Deshmukh",
+            role: "Agency Freelancer",
+            rating: "★★★★★",
+            text: "Hooks are stronger and posting feels less exhausting now.",
+            img: "https://i.pravatar.cc/100?img=12",
+          },
+          {
+            name: "Ishita Mehra",
+            role: "Creator",
+            rating: "★★★★☆",
+            text: "Good for daily content planning when I get stuck.",
+            img: "https://i.pravatar.cc/100?img=9",
+          },
+          {
+            name: "Daniel Brooks",
+            role: "Freelancer",
+            rating: "★★★★½",
+            text: "Simple and actually useful when I need better prompts.",
+            img: "https://i.pravatar.cc/100?img=15",
+          },
+          {
+            name: "Sophie Lane",
+            role: "Digital Creator",
+            rating: "★★★★★",
+            text: "I mostly use it for captions and content angles. Clean experience.",
+            img: "https://i.pravatar.cc/100?img=20",
+          },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="min-w-[300px] bg-black/50 border border-white/10 rounded-xl p-5 text-left backdrop-blur-md"
+          >
+            <div className="flex items-center mb-3">
+              <img
+                src={item.img}
+                alt={item.name}
+                className="w-10 h-10 rounded-full mr-3"
+              />
+              <div>
+                <p className="text-white text-sm font-semibold">{item.name}</p>
+                <p className="text-gray-500 text-xs">{item.role}</p>
+              </div>
+            </div>
+
+            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
+
+            <p className="text-gray-300 text-sm leading-relaxed">
+              “{item.text}”
+            </p>
+          </div>
+        ))}
+
+        {/* duplicate for infinite loop */}
+        {[...Array(4)].map((_, i) => (
+          <div key={"dup2-" + i} className="w-[300px]" />
+        ))}
+
+      </div>
+    </div>
+
   </div>
+
+  {/* Animations */}
+  <style>
+    {`
+      @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      @keyframes scroll-right {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+      }
+
+      .animate-scroll-left {
+        animation: scroll-left 25s linear infinite;
+      }
+
+      .animate-scroll-right {
+        animation: scroll-right 25s linear infinite;
+      }
+    `}
+  </style>
 </section>
       
       {/* Pricing */}
