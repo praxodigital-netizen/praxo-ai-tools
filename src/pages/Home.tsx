@@ -192,144 +192,140 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-<section className="py-20 border-t border-white/10 overflow-hidden">
+<section className="py-16 border-t border-white/10 overflow-hidden relative">
   <div className="max-w-7xl mx-auto px-4 text-center">
 
-    {/* Heading */}
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+    <h2 className="text-2xl md:text-4xl font-bold text-white mb-3">
       What creators are achieving
     </h2>
 
-    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-      Early users are saving time, improving hooks, and posting with more confidence.
+    <p className="text-gray-400 text-sm md:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+      Save time, improve hooks, and post with more confidence.
     </p>
 
-    <div className="relative overflow-hidden">
+    {/* Blur edges */}
+    <div className="pointer-events-none absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-black to-transparent z-10" />
+    <div className="pointer-events-none absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-black to-transparent z-10" />
 
-      {/* Edge blur */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-black to-transparent z-10" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-black to-transparent z-10" />
-
-      <div className="flex gap-6 animate-scroll w-max">
+    {/* Scrolling Row */}
+    <div className="overflow-hidden">
+      <div className="flex gap-5 animate-scroll">
 
         {[
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels improved after fixing hooks. I stopped overthinking content.",
-            img: "https://i.pravatar.cc/150?img=11",
+            text: "My reels started improving once I focused on hooks. Earlier I used to overthink a lot, now I just generate and post.",
+            img: "/reviews/aman-verma.jpg",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions come faster now. Saves me time daily.",
-            img: "https://i.pravatar.cc/150?img=32",
+            text: "Captions and ideas come much faster now. This tool saves me at least 1–2 hours daily.",
+            img: "/reviews/riya-kapoor.jpg",
           },
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
-            text: "Great when I need quick content ideas for my business posts.",
-            img: "https://i.pravatar.cc/150?img=12",
+            text: "Whenever I get stuck with content ideas for my business, this gives direction instantly.",
+            img: "/reviews/sarthak-jain.jpg",
           },
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
-            text: "Helps convert rough ideas into usable content easily.",
-            img: "https://i.pravatar.cc/150?img=47",
+            text: "The prompt tool helps convert rough ideas into proper content. Super helpful when I'm confused.",
+            img: "/reviews/neha-arora.jpg",
           },
           {
             name: "Pratik Deshmukh",
             role: "Freelancer",
             rating: "★★★★★",
-            text: "Posting feels easier now. No more overthinking.",
-            img: "https://i.pravatar.cc/150?img=15",
+            text: "Posting feels easier now. I don’t overthink content anymore and results are improving.",
+            img: "/reviews/pratik-deshmukh.jpg",
           },
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
-            text: "Good for daily consistency. Simple and effective tool.",
-            img: "https://i.pravatar.cc/150?img=45",
+            text: "Good for maintaining daily consistency. Clean UI and easy to use.",
+            img: "/reviews/ishita-mehra.jpg",
           },
           {
             name: "Daniel Brooks",
             role: "Freelancer",
             rating: "★★★★½",
-            text: "Clean prompts and actually useful suggestions.",
-            img: "https://i.pravatar.cc/150?img=52",
+            text: "The prompts are actually usable. Helps structure ideas quickly without much effort.",
+            img: "/reviews/daniel-brooks.jpg",
           },
           {
             name: "Sophie Lane",
             role: "Digital Creator",
             rating: "★★★★★",
-            text: "Helps me generate better captions quickly.",
-            img: "https://i.pravatar.cc/150?img=65",
+            text: "I mainly use it for captions and hooks. Makes content creation much smoother.",
+            img: "/reviews/sophie-lane.jpg",
           },
-
-          // duplicate for infinite loop
-          {
-            name: "Aman Verma",
-            role: "Content Creator",
-            rating: "★★★★☆",
-            text: "My reels improved after fixing hooks. I stopped overthinking content.",
-            img: "https://i.pravatar.cc/150?img=11",
-          },
-          {
-            name: "Riya Kapoor",
-            role: "Freelance Marketer",
-            rating: "★★★★★",
-            text: "Captions come faster now. Saves me time daily.",
-            img: "https://i.pravatar.cc/150?img=32",
-          },
-        ].map((item, i) => (
-          <div
-            key={i}
-            className="
-              w-[260px] sm:w-[280px] md:w-[300px]  /* ✅ FIXED WIDTH */
-              flex-shrink-0                     /* ❗ IMPORTANT */
-              rounded-xl border border-white/10
-              bg-gradient-to-br from-white/10 via-white/5 to-transparent
-              p-5 text-left
-              backdrop-blur-xl
-              shadow-lg shadow-black/30
-              hover:shadow-purple-500/30
-              hover:-translate-y-1
-              transition-all duration-300
-            "
-          >
-            <div className="flex items-center mb-3">
-              <img
-                src={item.img}
-                alt={item.name}
-                className="w-10 h-10 rounded-full mr-3 object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}`;
-                }}
-              />
-              <div>
-                <p className="text-white text-sm font-semibold">{item.name}</p>
-                <p className="text-gray-500 text-xs">{item.role}</p>
+        ]
+          .concat([
+            // duplicate for seamless loop
+            {
+              name: "Aman Verma",
+              role: "Content Creator",
+              rating: "★★★★☆",
+              text: "My reels started improving once I focused on hooks. Earlier I used to overthink a lot.",
+              img: "/reviews/aman-verma.jpg",
+            },
+            {
+              name: "Riya Kapoor",
+              role: "Freelance Marketer",
+              rating: "★★★★★",
+              text: "Captions and ideas come much faster now. Saves me time daily.",
+              img: "/reviews/riya-kapoor.jpg",
+            },
+          ])
+          .map((item, i) => (
+            <div
+              key={i}
+              className="w-[260px] md:w-[280px] flex-shrink-0
+              bg-white/5 border border-white/10 
+              rounded-xl p-4 text-left 
+              backdrop-blur-md
+              hover:shadow-purple-500/20 
+              hover:-translate-y-1 
+              transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  className="w-10 h-10 rounded-full mr-3 object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}`;
+                  }}
+                />
+                <div>
+                  <p className="text-white text-sm font-semibold">{item.name}</p>
+                  <p className="text-gray-500 text-xs">{item.role}</p>
+                </div>
               </div>
+
+              <p className="text-yellow-400 mb-1 text-sm">{item.rating}</p>
+
+              <p className="text-gray-300 text-sm leading-relaxed line-clamp-3">
+                “{item.text}”
+              </p>
             </div>
-
-            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
-
-            {/* ✅ TEXT WRAPS INSIDE FIXED BOX */}
-            <p className="text-gray-300 text-sm leading-relaxed line-clamp-3">
-              “{item.text}”
-            </p>
-          </div>
-        ))}
+          ))}
 
       </div>
     </div>
+
   </div>
 
-  {/* Smooth animation */}
+  {/* Animation */}
   <style>
     {`
       @keyframes scroll {
@@ -338,13 +334,7 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 35s linear infinite;
-      }
-
-      @media (max-width: 640px) {
-        .animate-scroll {
-          animation: scroll 30s linear infinite;
-        }
+        animation: scroll 45s linear infinite;
       }
     `}
   </style>
