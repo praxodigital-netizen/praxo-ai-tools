@@ -192,7 +192,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-<section className="py-20 border-t border-white/10 overflow-hidden">
+<section className="py-20 border-t border-white/10 overflow-hidden relative">
   <div className="max-w-7xl mx-auto px-4 text-center">
 
     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -203,159 +203,151 @@ export const Home: React.FC = () => {
       Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
-    {/* Row 1 */}
-    <div className="relative overflow-hidden mb-6">
-      <div className="flex gap-6 animate-scroll-left hover:[animation-play-state:paused]">
+    {/* Blur edges */}
+    <div className="pointer-events-none absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-black to-transparent z-10" />
+    <div className="pointer-events-none absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-black to-transparent z-10" />
+
+    {/* Scrolling Row */}
+    <div className="relative overflow-hidden">
+      <div className="flex gap-6 animate-scroll hover:[animation-play-state:paused]">
 
         {[
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
-            text: "My reels started getting better once I stopped overthinking the first line.",
-            img: "https://i.pravatar.cc/100?img=1",
+            text: "My reels started improving once I focused on hooks. This really helped.",
+            img: "https://randomuser.me/api/portraits/men/32.jpg",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
-            text: "Captions and prompt ideas come much faster now. Saves me a lot of time.",
-            img: "https://i.pravatar.cc/100?img=5",
+            text: "Captions and ideas come much faster now. Saves me time daily.",
+            img: "https://randomuser.me/api/portraits/women/44.jpg",
           },
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
-            text: "Helpful when I need post ideas quickly for my business page.",
-            img: "https://i.pravatar.cc/100?img=3",
+            text: "Useful when I need quick content ideas for my business posts.",
+            img: "https://randomuser.me/api/portraits/men/75.jpg",
           },
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
-            text: "The prompt tool is surprisingly useful. It cleans up my raw ideas.",
-            img: "https://i.pravatar.cc/100?img=8",
+            text: "The prompt tool helps convert rough ideas into usable content.",
+            img: "https://randomuser.me/api/portraits/women/68.jpg",
           },
-        ].map((item, i) => (
-          <div
-            key={i}
-            className="min-w-[300px] bg-black/50 border border-white/10 rounded-xl p-5 text-left backdrop-blur-md"
-          >
-            <div className="flex items-center mb-3">
-              <img
-                src={item.img}
-                alt={item.name}
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div>
-                <p className="text-white text-sm font-semibold">{item.name}</p>
-                <p className="text-gray-500 text-xs">{item.role}</p>
-              </div>
-            </div>
-
-            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
-
-            <p className="text-gray-300 text-sm leading-relaxed">
-              “{item.text}”
-            </p>
-          </div>
-        ))}
-
-        {/* duplicate for infinite loop */}
-        {[...Array(4)].map((_, i) => (
-          <div key={"dup1-" + i} className="w-[300px]" />
-        ))}
-
-      </div>
-    </div>
-
-    {/* Row 2 */}
-    <div className="relative overflow-hidden">
-      <div className="flex gap-6 animate-scroll-right hover:[animation-play-state:paused]">
-
-        {[
           {
             name: "Pratik Deshmukh",
-            role: "Agency Freelancer",
+            role: "Freelancer",
             rating: "★★★★★",
-            text: "Hooks are stronger and posting feels less exhausting now.",
-            img: "https://i.pravatar.cc/100?img=12",
+            text: "Posting feels easier now. I don’t overthink content anymore.",
+            img: "https://randomuser.me/api/portraits/men/54.jpg",
           },
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
-            text: "Good for daily content planning when I get stuck.",
-            img: "https://i.pravatar.cc/100?img=9",
+            text: "Good for daily posting consistency. Simple and effective.",
+            img: "https://randomuser.me/api/portraits/women/65.jpg",
           },
           {
             name: "Daniel Brooks",
             role: "Freelancer",
             rating: "★★★★½",
-            text: "Simple and actually useful when I need better prompts.",
-            img: "https://i.pravatar.cc/100?img=15",
+            text: "The prompts are clean and actually usable. Nice tool.",
+            img: "https://randomuser.me/api/portraits/men/12.jpg",
           },
           {
             name: "Sophie Lane",
             role: "Digital Creator",
             rating: "★★★★★",
-            text: "I mostly use it for captions and content angles. Clean experience.",
-            img: "https://i.pravatar.cc/100?img=20",
+            text: "Helps me generate better captions quickly. Smooth experience.",
+            img: "https://randomuser.me/api/portraits/women/21.jpg",
           },
-        ].map((item, i) => (
-          <div
-            key={i}
-            className="min-w-[300px] bg-black/50 border border-white/10 rounded-xl p-5 text-left backdrop-blur-md"
-          >
-            <div className="flex items-center mb-3">
-              <img
-                src={item.img}
-                alt={item.name}
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div>
-                <p className="text-white text-sm font-semibold">{item.name}</p>
-                <p className="text-gray-500 text-xs">{item.role}</p>
+        ]
+          .concat([
+            // duplicate for seamless loop
+            {
+              name: "Aman Verma",
+              role: "Content Creator",
+              rating: "★★★★☆",
+              text: "My reels started improving once I focused on hooks. This really helped.",
+              img: "https://randomuser.me/api/portraits/men/32.jpg",
+            },
+            {
+              name: "Riya Kapoor",
+              role: "Freelance Marketer",
+              rating: "★★★★★",
+              text: "Captions and ideas come much faster now. Saves me time daily.",
+              img: "https://randomuser.me/api/portraits/women/44.jpg",
+            },
+            {
+              name: "Sarthak Jain",
+              role: "Business Owner",
+              rating: "★★★★☆",
+              text: "Useful when I need quick content ideas for my business posts.",
+              img: "https://randomuser.me/api/portraits/men/75.jpg",
+            },
+            {
+              name: "Neha Arora",
+              role: "UGC Creator",
+              rating: "★★★★½",
+              text: "The prompt tool helps convert rough ideas into usable content.",
+              img: "https://randomuser.me/api/portraits/women/68.jpg",
+            },
+          ])
+          .map((item, i) => (
+            <div
+              key={i}
+              className="min-w-[260px] md:min-w-[300px] 
+              bg-gradient-to-br from-white/5 to-white/0 
+              border border-white/10 
+              rounded-xl p-5 text-left 
+              backdrop-blur-lg 
+              shadow-lg 
+              hover:shadow-purple-500/20 
+              hover:-translate-y-1 
+              transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  className="w-10 h-10 rounded-full mr-3 object-cover"
+                />
+                <div>
+                  <p className="text-white text-sm font-semibold">{item.name}</p>
+                  <p className="text-gray-500 text-xs">{item.role}</p>
+                </div>
               </div>
+
+              <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
+
+              <p className="text-gray-300 text-sm leading-relaxed">
+                “{item.text}”
+              </p>
             </div>
-
-            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
-
-            <p className="text-gray-300 text-sm leading-relaxed">
-              “{item.text}”
-            </p>
-          </div>
-        ))}
-
-        {/* duplicate for infinite loop */}
-        {[...Array(4)].map((_, i) => (
-          <div key={"dup2-" + i} className="w-[300px]" />
-        ))}
+          ))}
 
       </div>
     </div>
 
   </div>
 
-  {/* Animations */}
+  {/* Animation */}
   <style>
     {`
-      @keyframes scroll-left {
+      @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
 
-      @keyframes scroll-right {
-        0% { transform: translateX(-50%); }
-        100% { transform: translateX(0); }
-      }
-
-      .animate-scroll-left {
-        animation: scroll-left 25s linear infinite;
-      }
-
-      .animate-scroll-right {
-        animation: scroll-right 25s linear infinite;
+      .animate-scroll {
+        animation: scroll 30s linear infinite;
       }
     `}
   </style>
