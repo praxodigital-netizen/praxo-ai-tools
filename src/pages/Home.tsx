@@ -199,15 +199,16 @@ export const Home: React.FC = () => {
       What creators are achieving
     </h2>
 
-    <p className="text-gray-400 text-lg mb-12">
+    {/* ✅ Mobile fixed text */}
+    <p className="text-gray-400 text-base md:text-lg mb-10 max-w-2xl mx-auto px-2 leading-relaxed">
       Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
     {/* Blur edges */}
-    <div className="pointer-events-none absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-black to-transparent z-10" />
-    <div className="pointer-events-none absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-black to-transparent z-10" />
+    <div className="pointer-events-none absolute left-0 top-0 h-full w-20 md:w-32 bg-gradient-to-r from-black to-transparent z-10" />
+    <div className="pointer-events-none absolute right-0 top-0 h-full w-20 md:w-32 bg-gradient-to-l from-black to-transparent z-10" />
 
-    {/* Scrolling Row */}
+    {/* Data + Infinite Loop */}
     <div className="relative overflow-hidden">
       <div className="flex gap-6 animate-scroll hover:[animation-play-state:paused]">
 
@@ -217,42 +218,42 @@ export const Home: React.FC = () => {
             role: "Content Creator",
             rating: "★★★★☆",
             text: "My reels started improving once I focused on hooks. This really helped.",
-            img: "https://randomuser.me/api/portraits/men/32.jpg",
+            img: "https://randomuser.me/api/portraits/men/76.jpg",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
             text: "Captions and ideas come much faster now. Saves me time daily.",
-            img: "https://randomuser.me/api/portraits/women/44.jpg",
+            img: "https://randomuser.me/api/portraits/women/65.jpg",
           },
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
             text: "Useful when I need quick content ideas for my business posts.",
-            img: "https://randomuser.me/api/portraits/men/75.jpg",
+            img: "https://randomuser.me/api/portraits/men/54.jpg",
           },
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
             text: "The prompt tool helps convert rough ideas into usable content.",
-            img: "https://randomuser.me/api/portraits/women/68.jpg",
+            img: "https://randomuser.me/api/portraits/women/44.jpg",
           },
           {
             name: "Pratik Deshmukh",
             role: "Freelancer",
             rating: "★★★★★",
             text: "Posting feels easier now. I don’t overthink content anymore.",
-            img: "https://randomuser.me/api/portraits/men/54.jpg",
+            img: "https://randomuser.me/api/portraits/men/32.jpg",
           },
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
             text: "Good for daily posting consistency. Simple and effective.",
-            img: "https://randomuser.me/api/portraits/women/65.jpg",
+            img: "https://randomuser.me/api/portraits/women/68.jpg",
           },
           {
             name: "Daniel Brooks",
@@ -269,69 +270,98 @@ export const Home: React.FC = () => {
             img: "https://randomuser.me/api/portraits/women/21.jpg",
           },
         ]
-          .concat([
-            // duplicate for seamless loop
-            {
-              name: "Aman Verma",
-              role: "Content Creator",
-              rating: "★★★★☆",
-              text: "My reels started improving once I focused on hooks. This really helped.",
-              img: "https://randomuser.me/api/portraits/men/32.jpg",
-            },
-            {
-              name: "Riya Kapoor",
-              role: "Freelance Marketer",
-              rating: "★★★★★",
-              text: "Captions and ideas come much faster now. Saves me time daily.",
-              img: "https://randomuser.me/api/portraits/women/44.jpg",
-            },
-            {
-              name: "Sarthak Jain",
-              role: "Business Owner",
-              rating: "★★★★☆",
-              text: "Useful when I need quick content ideas for my business posts.",
-              img: "https://randomuser.me/api/portraits/men/75.jpg",
-            },
-            {
-              name: "Neha Arora",
-              role: "UGC Creator",
-              rating: "★★★★½",
-              text: "The prompt tool helps convert rough ideas into usable content.",
-              img: "https://randomuser.me/api/portraits/women/68.jpg",
-            },
-          ])
-          .map((item, i) => (
-            <div
-              key={i}
-              className="min-w-[260px] md:min-w-[300px] 
-              bg-gradient-to-br from-white/5 to-white/0 
-              border border-white/10 
-              rounded-xl p-5 text-left 
-              backdrop-blur-lg 
-              shadow-lg 
-              hover:shadow-purple-500/20 
-              hover:-translate-y-1 
-              transition-all duration-300"
-            >
-              <div className="flex items-center mb-3">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-10 h-10 rounded-full mr-3 object-cover"
-                />
-                <div>
-                  <p className="text-white text-sm font-semibold">{item.name}</p>
-                  <p className="text-gray-500 text-xs">{item.role}</p>
-                </div>
+        .concat([
+          {
+            name: "Aman Verma",
+            role: "Content Creator",
+            rating: "★★★★☆",
+            text: "My reels started improving once I focused on hooks. This really helped.",
+            img: "https://randomuser.me/api/portraits/men/76.jpg",
+          },
+          {
+            name: "Riya Kapoor",
+            role: "Freelance Marketer",
+            rating: "★★★★★",
+            text: "Captions and ideas come much faster now. Saves me time daily.",
+            img: "https://randomuser.me/api/portraits/women/65.jpg",
+          },
+          {
+            name: "Sarthak Jain",
+            role: "Business Owner",
+            rating: "★★★★☆",
+            text: "Useful when I need quick content ideas for my business posts.",
+            img: "https://randomuser.me/api/portraits/men/54.jpg",
+          },
+          {
+            name: "Neha Arora",
+            role: "UGC Creator",
+            rating: "★★★★½",
+            text: "The prompt tool helps convert rough ideas into usable content.",
+            img: "https://randomuser.me/api/portraits/women/44.jpg",
+          },
+          {
+            name: "Pratik Deshmukh",
+            role: "Freelancer",
+            rating: "★★★★★",
+            text: "Posting feels easier now. I don’t overthink content anymore.",
+            img: "https://randomuser.me/api/portraits/men/32.jpg",
+          },
+          {
+            name: "Ishita Mehra",
+            role: "Creator",
+            rating: "★★★★☆",
+            text: "Good for daily posting consistency. Simple and effective.",
+            img: "https://randomuser.me/api/portraits/women/68.jpg",
+          },
+          {
+            name: "Daniel Brooks",
+            role: "Freelancer",
+            rating: "★★★★½",
+            text: "The prompts are clean and actually usable. Nice tool.",
+            img: "https://randomuser.me/api/portraits/men/12.jpg",
+          },
+          {
+            name: "Sophie Lane",
+            role: "Digital Creator",
+            rating: "★★★★★",
+            text: "Helps me generate better captions quickly. Smooth experience.",
+            img: "https://randomuser.me/api/portraits/women/21.jpg",
+          },
+        ])
+        .map((item, i) => (
+          <div
+            key={i}
+            className="
+              min-w-[260px] md:min-w-[300px]
+              bg-gradient-to-br from-white/10 via-white/5 to-transparent
+              border border-white/10
+              rounded-xl p-5 text-left
+              backdrop-blur-xl
+              shadow-lg shadow-black/30
+              hover:shadow-purple-500/30
+              hover:-translate-y-1
+              transition-all duration-300
+            "
+          >
+            <div className="flex items-center mb-3">
+              <img
+                src={item.img}
+                alt={item.name}
+                className="w-10 h-10 rounded-full mr-3 object-cover"
+              />
+              <div>
+                <p className="text-white text-sm font-semibold">{item.name}</p>
+                <p className="text-gray-500 text-xs">{item.role}</p>
               </div>
-
-              <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
-
-              <p className="text-gray-300 text-sm leading-relaxed">
-                “{item.text}”
-              </p>
             </div>
-          ))}
+
+            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
+
+            <p className="text-gray-300 text-sm leading-relaxed">
+              “{item.text}”
+            </p>
+          </div>
+        ))}
 
       </div>
     </div>
@@ -347,7 +377,7 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 30s linear infinite;
+        animation: scroll 35s linear infinite;
       }
     `}
   </style>
