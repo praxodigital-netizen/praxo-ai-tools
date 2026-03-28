@@ -192,131 +192,147 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-<section className="py-20 border-t border-white/10 overflow-hidden relative">
+<section className="py-20 border-t border-white/10 overflow-hidden">
   <div className="max-w-7xl mx-auto px-4 text-center">
 
+    {/* Heading */}
     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
       What creators are achieving
     </h2>
 
-    {/* ✅ FIXED MOBILE TEXT (THIS WAS YOUR MAIN ISSUE) */}
-    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-xl sm:max-w-2xl mx-auto px-4 leading-relaxed break-words">
+    {/* FIXED MOBILE TEXT ISSUE */}
+    <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed px-2">
       Early users are saving time, improving hooks, and posting with more confidence.
     </p>
 
-    {/* Blur edges */}
-    <div className="pointer-events-none absolute left-0 top-0 h-full w-16 sm:w-24 md:w-32 bg-gradient-to-r from-black to-transparent z-10" />
-    <div className="pointer-events-none absolute right-0 top-0 h-full w-16 sm:w-24 md:w-32 bg-gradient-to-l from-black to-transparent z-10" />
-
-    {/* Scrolling Row */}
+    {/* SCROLL CONTAINER */}
     <div className="relative overflow-hidden">
-      <div className="flex gap-5 sm:gap-6 animate-scroll hover:[animation-play-state:paused]">
+
+      {/* Edge blur (ONLY on slider, not text) */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-20 bg-gradient-to-r from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-20 bg-gradient-to-l from-black to-transparent z-10" />
+
+      <div className="flex gap-5 sm:gap-6 animate-scroll w-max hover:[animation-play-state:paused]">
 
         {[
+          // ✅ INDIAN MALE
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
             text: "My reels started improving once I focused on hooks. This really helped.",
-            img: "https://images.generated.photos/lk1wFZc3y6e3k7l8wzX3Wz5g2qX2Y9p8r3f0a1b2c3d/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MjguanBn.jpg",
+            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ INDIAN FEMALE
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
             text: "Captions and ideas come much faster now. Saves me time daily.",
-            img: "https://images.generated.photos/6gRkY8W8g5g2p3q4r5s6t7u8v9w0x1y2z3a4b5c6d7/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MjkuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ INDIAN MALE
           {
             name: "Sarthak Jain",
             role: "Business Owner",
             rating: "★★★★☆",
             text: "Useful when I need quick content ideas for my business posts.",
-            img: "https://images.generated.photos/fYd3G5H7J8K2L9M1N0P4Q6R8S2T3U5V7W9X1Y2Z3/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MzAuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ INDIAN FEMALE
           {
             name: "Neha Arora",
             role: "UGC Creator",
             rating: "★★★★½",
             text: "The prompt tool helps convert rough ideas into usable content.",
-            img: "https://images.generated.photos/q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l0z1x2/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MzEuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ INDIAN MALE
           {
             name: "Pratik Deshmukh",
             role: "Freelancer",
             rating: "★★★★★",
             text: "Posting feels easier now. I don’t overthink content anymore.",
-            img: "https://images.generated.photos/u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MzIuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ INDIAN FEMALE
           {
             name: "Ishita Mehra",
             role: "Creator",
             rating: "★★★★☆",
             text: "Good for daily posting consistency. Simple and effective.",
-            img: "https://images.generated.photos/m1n2b3v4c5x6z7a8s9d0f1g2h3j4k5l6p7o8i9u0y1/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MzMuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ FOREIGN MALE
           {
             name: "Daniel Brooks",
             role: "Freelancer",
             rating: "★★★★½",
             text: "The prompts are clean and actually usable. Nice tool.",
-            img: "https://randomuser.me/api/portraits/men/12.jpg",
+            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
           },
+
+          // ✅ FOREIGN FEMALE
           {
             name: "Sophie Lane",
             role: "Digital Creator",
             rating: "★★★★★",
             text: "Helps me generate better captions quickly. Smooth experience.",
-            img: "https://randomuser.me/api/portraits/women/21.jpg",
+            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces",
           },
-        ]
-        .concat([
-          // duplicate for perfect loop
+
+          // 🔁 DUPLICATE FOR LOOP (IMPORTANT)
           {
             name: "Aman Verma",
             role: "Content Creator",
             rating: "★★★★☆",
             text: "My reels started improving once I focused on hooks. This really helped.",
-            img: "https://images.generated.photos/lk1wFZc3y6e3k7l8wzX3Wz5g2qX2Y9p8r3f0a1b2c3d/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MjguanBn.jpg",
+            img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
           },
           {
             name: "Riya Kapoor",
             role: "Freelance Marketer",
             rating: "★★★★★",
             text: "Captions and ideas come much faster now. Saves me time daily.",
-            img: "https://images.generated.photos/6gRkY8W8g5g2p3q4r5s6t7u8v9w0x1y2z3a4b5c6d7/rs:fit:512:512/czM6Ly9nZW5lcmF0ZWQtcGhvdG9zLzA2NTg3MjkuanBn.jpg",
+            img: "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?w=200&h=200&fit=crop&crop=faces",
           },
-        ])
-        .map((item, i) => (
+        ].map((item, i) => (
           <div
             key={i}
-            className="
-              min-w-[240px] sm:min-w-[260px] md:min-w-[300px]
-              bg-gradient-to-br from-white/10 via-white/5 to-transparent
-              border border-white/10
-              rounded-xl p-4 sm:p-5 text-left
-              backdrop-blur-xl
-              shadow-lg shadow-black/30
-              hover:shadow-purple-500/30
-              hover:-translate-y-1
-              transition-all duration-300
-            "
+            className="min-w-[240px] sm:min-w-[260px] md:min-w-[300px]
+            rounded-xl border border-white/10
+            bg-gradient-to-br from-white/10 via-white/5 to-transparent
+            p-4 sm:p-5 text-left
+            backdrop-blur-xl
+            shadow-lg shadow-black/30
+            hover:shadow-purple-500/30
+            hover:-translate-y-1
+            transition-all duration-300"
           >
             <div className="flex items-center mb-3">
               <img
                 src={item.img}
                 alt={item.name}
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full mr-3 object-cover"
+                className="w-10 h-10 rounded-full mr-3 object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=1f2937&color=ffffff`;
+                }}
               />
               <div>
-                <p className="text-white text-xs sm:text-sm font-semibold">{item.name}</p>
-                <p className="text-gray-500 text-[10px] sm:text-xs">{item.role}</p>
+                <p className="text-white text-sm font-semibold">{item.name}</p>
+                <p className="text-gray-500 text-xs">{item.role}</p>
               </div>
             </div>
 
-            <p className="text-yellow-400 mb-2 text-xs sm:text-sm">{item.rating}</p>
+            <p className="text-yellow-400 mb-2 text-sm">{item.rating}</p>
 
-            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+            <p className="text-gray-300 text-sm leading-relaxed">
               “{item.text}”
             </p>
           </div>
@@ -324,10 +340,9 @@ export const Home: React.FC = () => {
 
       </div>
     </div>
-
   </div>
 
-  {/* Faster Animation */}
+  {/* SCROLL ANIMATION */}
   <style>
     {`
       @keyframes scroll {
@@ -336,7 +351,13 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 22s linear infinite;
+        animation: scroll 18s linear infinite;
+      }
+
+      @media (max-width: 640px) {
+        .animate-scroll {
+          animation: scroll 14s linear infinite;
+        }
       }
     `}
   </style>
