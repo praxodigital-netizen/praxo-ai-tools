@@ -334,7 +334,7 @@ export const Home: React.FC = () => {
       }
 
       .animate-scroll {
-        animation: scroll 45s linear infinite;
+        animation: scroll 35s linear infinite;
       }
     `}
   </style>
